@@ -592,13 +592,13 @@ demo = {
   
   //receive details from server
   socket.on("updateSensorData", function (msg) {
-    console.log("Received sensorData :: " + msg.date + " :: " + msg.value);
+    console.log("Received sensorData :: " + msg.date + " :: " + msg.primary_vl_value);
 
     // Show only MAX_DATA_COUNT data
     if (myChart.data.labels.length > MAX_DATA_COUNT) {
       removeFirstData();
     }
-    addData(msg.date, msg.value);
+    addData(msg.date, msg.primary_vl_value);
   });
   
 }

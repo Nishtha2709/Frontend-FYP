@@ -4,6 +4,8 @@ from random import random
 from threading import Lock
 from datetime import datetime
 
+import pandas as pd
+
 """
 Background Thread
 """
@@ -13,6 +15,10 @@ thread_lock = Lock()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'donsky!'
 socketio = SocketIO(app, cors_allowed_origins='*')
+
+iteration = 0
+data = pd.read_csv("transformer_dataset.csv")
+
 
 """
 Get current date time
@@ -26,9 +32,23 @@ Generate random sequence of dummy sensor values and send it to our clients
 """
 def background_thread():
     print("Generating random sensor values")
+
+    global iteration
     while True:
-        dummy_sensor_value = round(random() * 100, 3)
-        socketio.emit('updateSensorData', {'value': dummy_sensor_value, "date": get_current_datetime()})
+        primary_vl_value = ( float(data["Primary_VL1"][iteration]) + float(data["Primary_VL2"][iteration]) + float(data["Primary_VL3"][iteration]) ) /3
+        secondary_vl_value = ( float(data["Secondary_VL1"][iteration]) + float(data["Secondary_VL2"][iteration]) + float(data["Secondary_VL3"][iteration]) ) /3
+        
+        primary_curr_value = ( float(data["Primary_IL1"][iteration]) + float(data["Primary_IL2"][iteration]) + float(data["Primary_IL3"][iteration]) ) /3
+        secondary_curr_value = ( float(data["Secondary_IL1"][iteration]) + float(data["Secondary_IL2"][iteration]) + float(data["Secondary_IL3"][iteration]) ) /3
+
+        #socketio.emit('updateSensorData', {'value': primary_vl_value, "date": get_current_datetime()})
+
+        socketio.emit('updateSensorData', {'primary_vl_value':primary_vl_value, 
+                                           'secondary_vl_value':secondary_vl_value,
+                                           'primary_curr_value':primary_curr_value,
+                                           'secondary_curr_value':secondary_curr_value,
+                                           'date':data["DeviceTimeStamp"][iteration]})
+        iteration+=1
         socketio.sleep(1)
 
 """
