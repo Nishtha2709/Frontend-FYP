@@ -6,6 +6,8 @@ from datetime import datetime
 
 import pandas as pd
 
+from project.transformer_test import ratio_test, efficiency, winding_resistance
+
 """
 Background Thread
 """
@@ -35,19 +37,31 @@ def background_thread():
 
     global iteration
     while True:
+        
         primary_vl_value = ( float(data["Primary_VL1"][iteration]) + float(data["Primary_VL2"][iteration]) + float(data["Primary_VL3"][iteration]) ) /3
         secondary_vl_value = ( float(data["Secondary_VL1"][iteration]) + float(data["Secondary_VL2"][iteration]) + float(data["Secondary_VL3"][iteration]) ) /3
         
         primary_curr_value = ( float(data["Primary_IL1"][iteration]) + float(data["Primary_IL2"][iteration]) + float(data["Primary_IL3"][iteration]) ) /3
         secondary_curr_value = ( float(data["Secondary_IL1"][iteration]) + float(data["Secondary_IL2"][iteration]) + float(data["Secondary_IL3"][iteration]) ) /3
 
-        #socketio.emit('updateSensorData', {'value': primary_vl_value, "date": get_current_datetime()})
-
+        # socket data emission for dynamic graphs
         socketio.emit('updateSensorData', {'primary_vl_value':primary_vl_value, 
                                            'secondary_vl_value':secondary_vl_value,
                                            'primary_curr_value':primary_curr_value,
                                            'secondary_curr_value':secondary_curr_value,
                                            'date':data["DeviceTimeStamp"][iteration]})
+        
+        ratio_test_value = ratio_test(primary_curr_value, secondary_curr_value)
+        efficiency_value = efficiency(iteration)
+        winding_resistance_diff = winding_resistance(iteration)
+        oil_temperature = data["Oil_Temperature"][iteration]
+
+        # socket data emission for transformer tests
+        socketio.emit('transformerTestData', {'ratio_test':ratio_test_value,
+                                              'efficiency':efficiency_value,
+                                              'winding_resistance_diff':winding_resistance_diff,
+                                              'oil_temperature':oil_temperature})
+        
         iteration+=1
         socketio.sleep(1)
 
