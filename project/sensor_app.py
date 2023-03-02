@@ -31,9 +31,9 @@ Serve root index file
 def index():
     return render_template('dashboard.html')
 
-'''@app.route('/')
-def 
-    return render_template('')'''
+@app.route('/tests')
+def tests():
+    return render_template('tests.html')
 
 
 
