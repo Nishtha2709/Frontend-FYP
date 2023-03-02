@@ -2,11 +2,13 @@ from flask import Flask, render_template, request
 from flask_socketio import SocketIO
 from random import random
 from threading import Lock
-from datetime import datetime
+#from datetime import datetime
 
 import pandas as pd
 
-from project.transformer_test import ratio_test, efficiency, winding_resistance
+from transformer_test import efficiency, ratio_test, winding_resistance
+
+
 
 """
 Background Thread
@@ -23,11 +25,19 @@ data = pd.read_csv("transformer_dataset.csv")
 
 
 """
-Get current date time
+Serve root index file
 """
-def get_current_datetime():
-    now = datetime.now()
-    return now.strftime("%m/%d/%Y %H:%M:%S")
+@app.route('/')
+def index():
+    return render_template('dashboard.html')
+
+'''@app.route('/')
+def 
+    return render_template('')'''
+
+
+
+#------------------------------------Socket Connection------------------------------------#
 
 """
 Generate random sequence of dummy sensor values and send it to our clients
@@ -66,13 +76,6 @@ def background_thread():
         socketio.sleep(1)
 
 """
-Serve root index file
-"""
-@app.route('/')
-def index():
-    return render_template('dashboard.html')
-
-"""
 Decorator for connect
 """
 @socketio.on('connect')
@@ -91,6 +94,10 @@ Decorator for disconnect
 @socketio.on('disconnect')
 def disconnect():
     print('Client disconnected',  request.sid)
+
+#------------------------------------Socket Close------------------------------------#
+
+
 
 if __name__ == '__main__':
     socketio.run(app)
