@@ -1,8 +1,8 @@
 type = ['primary', 'info', 'success', 'warning', 'danger'];
 
 demo = {
-  initPickColor: function() {
-    $('.pick-class-label').click(function() {
+  initPickColor: function () {
+    $('.pick-class-label').click(function () {
       var new_class = $(this).attr('new-class');
       var old_class = $('#display-buttons').attr('data-class');
       var display_div = $('#display-buttons');
@@ -15,7 +15,7 @@ demo = {
     });
   },
 
-  initDocChart: function() {
+  initDocChart: function () {
     chartColor = "#FFFFFF";
 
     // General configuration for the charts with Line gradientStroke
@@ -106,7 +106,29 @@ demo = {
     });
   },
 
-  initDashboardPageCharts: function() {
+  initDashboardPageCharts: function () {
+
+    // global variables and functions for dynamic graphs
+    function addData(label, data, chartName) {
+      chartName.data.labels.push(label);
+      chartName.data.datasets.forEach((dataset) => {
+        dataset.data.push(data);
+      });
+      chartName.update();
+    }
+
+    function removeFirstData(chartName) {
+      chartName.data.labels.splice(0, 1);
+      chartName.data.datasets.forEach((dataset) => {
+        dataset.data.shift();
+      });
+    }
+
+    const MAX_DATA_COUNT = 10;
+    //connect to the socket server.
+    //var socket = io.connect("http://" + "127.0.0.1" + ":" + "5000");
+    var socket = io.connect();
+    console.log("socket connected");
 
     gradientChartOptionsConfigurationWithTooltipBlue = {
       maintainAspectRatio: false,
@@ -300,7 +322,6 @@ demo = {
       }
     };
 
-
     gradientBarChartConfiguration = {
       maintainAspectRatio: false,
       legend: {
@@ -349,6 +370,9 @@ demo = {
       }
     };
 
+
+
+    // ==================== chart start : Secondary Voltage ================================
     var ctx = document.getElementById("chartLinePurple").getContext("2d");
 
     var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
@@ -357,34 +381,54 @@ demo = {
     gradientStroke.addColorStop(0.2, 'rgba(72,72,176,0.0)');
     gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
 
-    var data = {
-      labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN'],
-      datasets: [{
-        label: "Data",
-        fill: true,
-        backgroundColor: gradientStroke,
-        borderColor: '#d048b6',
-        borderWidth: 2,
-        borderDash: [],
-        borderDashOffset: 0.0,
-        pointBackgroundColor: '#d048b6',
-        pointBorderColor: 'rgba(255,255,255,0)',
-        pointHoverBackgroundColor: '#d048b6',
-        pointBorderWidth: 20,
-        pointHoverRadius: 4,
-        pointHoverBorderWidth: 15,
-        pointRadius: 4,
-        data: [80, 100, 70, 80, 120, 80],
-      }]
-    };
-
-    var myChart = new Chart(ctx, {
+    var mySecVoltchart = new Chart(ctx, {
       type: 'line',
-      data: data,
+      responsive: true,
+      legend: {
+        display: false
+      },
+      data: {
+        //labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN'],
+        datasets: [{
+          label: "Secondary Voltage",
+          fill: true,
+          backgroundColor: gradientStroke,
+          borderColor: '#d048b6',
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          pointBackgroundColor: '#d048b6',
+          pointBorderColor: 'rgba(255,255,255,0)',
+          pointHoverBackgroundColor: '#d048b6',
+          pointBorderWidth: 20,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 15,
+          pointRadius: 4,
+          //data: [80, 100, 70, 80, 120, 80],
+        }]
+      },
       options: gradientChartOptionsConfigurationWithTooltipPurple
     });
 
 
+    //receive details from server
+    socket.on("updateSensorData", function (msg) {
+      console.log("Received sensorData :: " + msg.date + " :: " + msg.secondary_vl_value);
+
+      // Show only MAX_DATA_COUNT data
+      if (mySecVoltchart.data.labels.length > MAX_DATA_COUNT) {
+        removeFirstData(mySecVoltchart);
+      }
+      addData(msg.date, msg.secondary_vl_value, mySecVoltchart);
+    });
+
+
+    //=======================  chart end : Secondary Voltage =======================
+
+
+
+
+    //====================== chart start : Primary voltage ==========================
     var ctxGreen = document.getElementById("chartLineGreen").getContext("2d");
 
     var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
@@ -393,40 +437,55 @@ demo = {
     gradientStroke.addColorStop(0.4, 'rgba(66,134,121,0.0)'); //green colors
     gradientStroke.addColorStop(0, 'rgba(66,134,121,0)'); //green colors
 
-    var data = {
-      labels: ['JUL', 'AUG', 'SEP', 'OCT', 'NOV'],
-      datasets: [{
-        label: "My First dataset",
-        fill: true,
-        backgroundColor: gradientStroke,
-        borderColor: '#00d6b4',
-        borderWidth: 2,
-        borderDash: [],
-        borderDashOffset: 0.0,
-        pointBackgroundColor: '#00d6b4',
-        pointBorderColor: 'rgba(255,255,255,0)',
-        pointHoverBackgroundColor: '#00d6b4',
-        pointBorderWidth: 20,
-        pointHoverRadius: 4,
-        pointHoverBorderWidth: 15,
-        pointRadius: 4,
-        data: [90, 27, 60, 12, 80],
-      }]
-    };
-
-    var myChart = new Chart(ctxGreen, {
+    var myPriVoltChart = new Chart(ctxGreen, {
       type: 'line',
-      data: data,
+      responsive: true,
+      legend: {
+        display: false
+      },
+
+      data: {
+        // labels: ['JUL', 'AUG', 'SEP', 'OCT', 'NOV'],
+        datasets: [{
+          label: "Primary Voltage",
+          fill: true,
+          backgroundColor: gradientStroke,
+          borderColor: '#00d6b4',
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          pointBackgroundColor: '#00d6b4',
+          pointBorderColor: 'rgba(255,255,255,0)',
+          pointHoverBackgroundColor: '#00d6b4',
+          pointBorderWidth: 20,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 15,
+          pointRadius: 4,
+          // data: [90, 27, 60, 12, 80],
+        }]
+      },
+      // data: data,
       options: gradientChartOptionsConfigurationWithTooltipGreen
 
     });
 
+    socket.on("updateSensorData", function (msg) {
+      console.log("Received sensorData :: " + msg.date + " :: " + msg.primary_vl_value);
+
+      // Show only MAX_DATA_COUNT data
+      if (myPriVoltChart.data.labels.length > MAX_DATA_COUNT) {
+        removeFirstData(myPriVoltChart);
+      }
+      addData(msg.date, msg.primary_vl_value, myPriVoltChart);
+    });
 
 
-    var chart_labels = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-    var chart_data = [100, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 100];
+
+    // ======================= chart end : Secondary Voltage ==============================
 
 
+
+    // ====================== chart start : primary current ==========================
     var ctx = document.getElementById("chartBig1").getContext('2d');
 
     var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
@@ -434,12 +493,16 @@ demo = {
     gradientStroke.addColorStop(1, 'rgba(72,72,176,0.1)');
     gradientStroke.addColorStop(0.4, 'rgba(72,72,176,0.0)');
     gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
-    var config = {
+
+    var myPriCurrChart = new Chart(ctx, {
       type: 'line',
+      responsive: true,
+      legend: {
+        display: false
+      },
       data: {
-        labels: chart_labels,
         datasets: [{
-          label: "My First dataset",
+          label: "Primary Current",
           fill: true,
           backgroundColor: gradientStroke,
           borderColor: '#d346b1',
@@ -453,36 +516,28 @@ demo = {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
-          data: chart_data,
+          // data: chart_data,
         }]
       },
       options: gradientChartOptionsConfigurationWithTooltipPurple
-    };
-    var myChartData = new Chart(ctx, config);
-    $("#0").click(function() {
-      var data = myChartData.config.data;
-      data.datasets[0].data = chart_data;
-      data.labels = chart_labels;
-      myChartData.update();
-    });
-    $("#1").click(function() {
-      var chart_data = [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 120];
-      var data = myChartData.config.data;
-      data.datasets[0].data = chart_data;
-      data.labels = chart_labels;
-      myChartData.update();
     });
 
-    $("#2").click(function() {
-      var chart_data = [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130];
-      var data = myChartData.config.data;
-      data.datasets[0].data = chart_data;
-      data.labels = chart_labels;
-      myChartData.update();
+    //receive details from server
+    socket.on("updateSensorData", function (msg) {
+      console.log("Received sensorData :: " + msg.date + " :: " + msg.primary_curr_value);
+
+      // Show only MAX_DATA_COUNT data
+      if (myPriCurrChart.data.labels.length > MAX_DATA_COUNT) {
+        removeFirstData(myPriCurrChart);
+      }
+      addData(msg.date, msg.primary_curr_value, myPriCurrChart);
     });
+    // ==================== chart end : primary current ===================
 
 
 
+
+    // =================== chart start : secondary current =====================
     var ctx = document.getElementById("chartBig2").getContext('2d');
 
     var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
@@ -490,12 +545,17 @@ demo = {
     gradientStroke.addColorStop(1, 'rgba(72,72,176,0.1)');
     gradientStroke.addColorStop(0.4, 'rgba(72,72,176,0.0)');
     gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
-    var config = {
+
+    var mySecCurrChart = new Chart(ctx, {
       type: 'line',
+      responsive: true,
+      legend: {
+        display: false
+      },
       data: {
-        labels: chart_labels,
+        // labels: chart_labels,
         datasets: [{
-          label: "My First dataset",
+          label: "Secondary Current",
           fill: true,
           backgroundColor: gradientStroke,
           borderColor: '#d346b1',
@@ -509,98 +569,67 @@ demo = {
           pointHoverRadius: 4,
           pointHoverBorderWidth: 15,
           pointRadius: 4,
-          data: chart_data,
+          // data: chart_data,
         }]
       },
       options: gradientChartOptionsConfigurationWithTooltipPurple
-    };
-    var myChartData = new Chart(ctx, config);
-    $("#0").click(function() {
-      var data = myChartData.config.data;
-      data.datasets[0].data = chart_data;
-      data.labels = chart_labels;
-      myChartData.update();
-    });
-    $("#1").click(function() {
-      var chart_data = [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 120];
-      var data = myChartData.config.data;
-      data.datasets[0].data = chart_data;
-      data.labels = chart_labels;
-      myChartData.update();
     });
 
-    $("#2").click(function() {
-      var chart_data = [60, 80, 65, 130, 80, 105, 90, 130, 70, 115, 60, 130];
-      var data = myChartData.config.data;
-      data.datasets[0].data = chart_data;
-      data.labels = chart_labels;
-      myChartData.update();
+    //receive details from server
+    socket.on("updateSensorData", function (msg) {
+      console.log("Received sensorData :: " + msg.date + " :: " + msg.secondary_curr_value);
+
+      // Show only MAX_DATA_COUNT data
+      if (mySecCurrChart.data.labels.length > MAX_DATA_COUNT) {
+        removeFirstData(mySecCurrChart);
+      }
+      addData(msg.date, msg.secondary_curr_value, mySecCurrChart);
     });
+
 
 
     // ================== winding temperature =================================
-    var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+    // var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
 
-    gradientStroke.addColorStop(1, 'rgba(29,140,248,0.2)');
-    gradientStroke.addColorStop(0.4, 'rgba(29,140,248,0.0)');
-    gradientStroke.addColorStop(0, 'rgba(29,140,248,0)'); //blue colors
+    // gradientStroke.addColorStop(1, 'rgba(29,140,248,0.2)');
+    // gradientStroke.addColorStop(0.4, 'rgba(29,140,248,0.0)');
+    // gradientStroke.addColorStop(0, 'rgba(29,140,248,0)'); //blue colors
 
-    var ctx = document.getElementById("CountryChart").getContext("2d");
-    var myChart = new Chart(ctx, {
-      type: 'line',
-      responsive: true,
-      legend: {
-        display: false
-      },
-      data: {
-        // labels: ['USA', 'GER', 'AUS', 'UK', 'RO', 'BR'],
-        datasets: [{
-          label: "Temperature",
-          fill: true,
-          backgroundColor: gradientStroke,
-          hoverBackgroundColor: gradientStroke,
-          borderColor: '#1f8ef1',
-          borderWidth: 2,
-          borderDash: [],
-          borderDashOffset: 0.0,
-          // data: [53, 20, 10, 80, 100, 45],
-        }]
-      },
-      options: gradientBarChartConfiguration
-    });
+    // var ctx = document.getElementById("CountryChart").getContext("2d");
+    // var myChart = new Chart(ctx, {
+    //   type: 'line',
+    //   responsive: true,
+    //   legend: {
+    //     display: false
+    //   },
+    //   data: {
+    //     // labels: ['USA', 'GER', 'AUS', 'UK', 'RO', 'BR'],
+    //     datasets: [{
+    //       label: "Temperature",
+    //       fill: true,
+    //       backgroundColor: gradientStroke,
+    //       hoverBackgroundColor: gradientStroke,
+    //       borderColor: '#1f8ef1',
+    //       borderWidth: 2,
+    //       borderDash: [],
+    //       borderDashOffset: 0.0,
+    //       // data: [53, 20, 10, 80, 100, 45],
+    //     }]
+    //   },
+    //   options: gradientBarChartConfiguration
+    // });
 
-    function addData(label, data) {
-      myChart.data.labels.push(label);
-      myChart.data.datasets.forEach((dataset) => {
-        dataset.data.push(data);
-      });
-      myChart.update();
-    }
-  
-    function removeFirstData() {
-      myChart.data.labels.splice(0, 1);
-      myChart.data.datasets.forEach((dataset) => {
-        dataset.data.shift();
-      });
+    // //receive details from server
+    // socket.on("updateSensorData", function (msg) {
+    //   console.log("Received sensorData :: " + msg.date + " :: " + msg.primary_vl_value);
+
+    //   // Show only MAX_DATA_COUNT data
+    //   if (myChart.data.labels.length > MAX_DATA_COUNT) {
+    //     removeFirstData(myChart);
+    //   }
+    //   addData(msg.date, msg.primary_vl_value, myChart);
+    // });
+
   }
-
-  const MAX_DATA_COUNT = 10;
-  //connect to the socket server.
-  //var socket = io.connect("http://" + "127.0.0.1" + ":" + "5000");
-  var socket = io.connect();
-  console.log("socket connected");
-  
-  //receive details from server
-  socket.on("updateSensorData", function (msg) {
-    console.log("Received sensorData :: " + msg.date + " :: " + msg.primary_vl_value);
-
-    // Show only MAX_DATA_COUNT data
-    if (myChart.data.labels.length > MAX_DATA_COUNT) {
-      removeFirstData();
-    }
-    addData(msg.date, msg.primary_vl_value);
-  });
-  
-}
 
 }
