@@ -35,6 +35,10 @@ def index():
 def tests():
     return render_template('tests.html')
 
+@app.route('/try')
+def trying():
+    return render_template('try.html')
+
 
 
 #------------------------------------Socket Connection------------------------------------#

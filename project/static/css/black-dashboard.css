@@ -4706,7 +4706,7 @@ table.tablesorter thead tr .headerSortDown {
 }
 
 .card .card-body .card-title {
-  color: #FFFFFF;
+  color: #1d253b;
   text-transform: inherit;
   font-weight: 300;
 }
@@ -4727,7 +4727,7 @@ table.tablesorter thead tr .headerSortDown {
 }
 
 .card .card-header .card-title {
-  color: #FFFFFF;
+  color: #1d253b;
   font-weight: 100;
 }
 
@@ -4807,7 +4807,7 @@ table.tablesorter thead tr .headerSortDown {
 }
 
 .card-chart .card-header .card-title {
-  color: #FFFFFF;
+  color: #1d253b;
 }
 
 .card-chart .card-header .card-title i {

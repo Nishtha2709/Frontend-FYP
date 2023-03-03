@@ -156,8 +156,8 @@ demo = {
             zeroLineColor: "transparent",
           },
           ticks: {
-            suggestedMin: 60,
-            suggestedMax: 125,
+            suggestedMin: 10.9,
+            suggestedMax: 11.1,
             padding: 20,
             fontColor: "#2380f7"
           }
@@ -173,6 +173,54 @@ demo = {
           ticks: {
             padding: 20,
             fontColor: "#2380f7"
+          }
+        }]
+      }
+    };
+
+    gradientChartOptionsConfigurationWithTooltipPurple2 = {
+      maintainAspectRatio: false,
+      legend: {
+        display: false
+      },
+
+      tooltips: {
+        backgroundColor: '#f5f5f5',
+        titleFontColor: '#333',
+        bodyFontColor: '#666',
+        bodySpacing: 4,
+        xPadding: 12,
+        mode: "nearest",
+        intersect: 0,
+        position: "nearest"
+      },
+      responsive: true,
+      scales: {
+        yAxes: [{
+          barPercentage: 1.6,
+          gridLines: {
+            drawBorder: false,
+            color: 'rgba(29,140,248,0.0)',
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            suggestedMin: 1005,
+            suggestedMax: 1020,
+            padding: 20,
+            fontColor: "#9a9a9a"
+          }
+        }],
+
+        xAxes: [{
+          barPercentage: 1.6,
+          gridLines: {
+            drawBorder: false,
+            color: 'rgba(225,78,202,0.1)',
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            padding: 20,
+            fontColor: "#9a9a9a"
           }
         }]
       }
@@ -204,8 +252,8 @@ demo = {
             zeroLineColor: "transparent",
           },
           ticks: {
-            suggestedMin: 60,
-            suggestedMax: 125,
+            suggestedMin: 37,
+            suggestedMax: 38,
             padding: 20,
             fontColor: "#9a9a9a"
           }
@@ -252,8 +300,8 @@ demo = {
             zeroLineColor: "transparent",
           },
           ticks: {
-            suggestedMin: 50,
-            suggestedMax: 110,
+            suggestedMin: 0.44,
+            suggestedMax: 0.45,
             padding: 20,
             fontColor: "#ff8a76"
           }
@@ -300,8 +348,8 @@ demo = {
             zeroLineColor: "transparent",
           },
           ticks: {
-            suggestedMin: 50,
-            suggestedMax: 125,
+            suggestedMin: 10.90,
+            suggestedMax: 11.2,
             padding: 20,
             fontColor: "#9e9e9e"
           }
@@ -407,7 +455,7 @@ demo = {
           //data: [80, 100, 70, 80, 120, 80],
         }]
       },
-      options: gradientChartOptionsConfigurationWithTooltipPurple
+      options: gradientChartOptionsConfigurationWithTooltipOrange
     });
 
 
@@ -572,7 +620,7 @@ demo = {
           // data: chart_data,
         }]
       },
-      options: gradientChartOptionsConfigurationWithTooltipPurple
+      options: gradientChartOptionsConfigurationWithTooltipPurple2
     });
 
     //receive details from server
@@ -589,46 +637,46 @@ demo = {
 
 
     // ================== winding temperature =================================
-    // var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+    var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
 
-    // gradientStroke.addColorStop(1, 'rgba(29,140,248,0.2)');
-    // gradientStroke.addColorStop(0.4, 'rgba(29,140,248,0.0)');
-    // gradientStroke.addColorStop(0, 'rgba(29,140,248,0)'); //blue colors
+    gradientStroke.addColorStop(1, 'rgba(29,140,248,0.2)');
+    gradientStroke.addColorStop(0.4, 'rgba(29,140,248,0.0)');
+    gradientStroke.addColorStop(0, 'rgba(29,140,248,0)'); //blue colors
 
-    // var ctx = document.getElementById("CountryChart").getContext("2d");
-    // var myChart = new Chart(ctx, {
-    //   type: 'line',
-    //   responsive: true,
-    //   legend: {
-    //     display: false
-    //   },
-    //   data: {
-    //     // labels: ['USA', 'GER', 'AUS', 'UK', 'RO', 'BR'],
-    //     datasets: [{
-    //       label: "Temperature",
-    //       fill: true,
-    //       backgroundColor: gradientStroke,
-    //       hoverBackgroundColor: gradientStroke,
-    //       borderColor: '#1f8ef1',
-    //       borderWidth: 2,
-    //       borderDash: [],
-    //       borderDashOffset: 0.0,
-    //       // data: [53, 20, 10, 80, 100, 45],
-    //     }]
-    //   },
-    //   options: gradientBarChartConfiguration
-    // });
+    var ctx = document.getElementById("CountryChart").getContext("2d");
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      responsive: true,
+      legend: {
+        display: false
+      },
+      data: {
+        // labels: ['USA', 'GER', 'AUS', 'UK', 'RO', 'BR'],
+        datasets: [{
+          label: "Temperature",
+          fill: true,
+          backgroundColor: gradientStroke,
+          hoverBackgroundColor: gradientStroke,
+          borderColor: '#1f8ef1',
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          // data: [53, 20, 10, 80, 100, 45],
+        }]
+      },
+      options: gradientChartOptionsConfigurationWithTooltipBlue
+    });
 
-    // //receive details from server
-    // socket.on("updateSensorData", function (msg) {
-    //   console.log("Received sensorData :: " + msg.date + " :: " + msg.primary_vl_value);
+    //receive details from server
+    socket.on("updateSensorData", function (msg) {
+      console.log("Received sensorData :: " + msg.date + " :: " + msg.primary_vl_value);
 
-    //   // Show only MAX_DATA_COUNT data
-    //   if (myChart.data.labels.length > MAX_DATA_COUNT) {
-    //     removeFirstData(myChart);
-    //   }
-    //   addData(msg.date, msg.primary_vl_value, myChart);
-    // });
+      // Show only MAX_DATA_COUNT data
+      if (myChart.data.labels.length > MAX_DATA_COUNT) {
+        removeFirstData(myChart);
+      }
+      addData(msg.date, msg.primary_vl_value, myChart);
+    });
 
   }
 
