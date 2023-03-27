@@ -33,11 +33,15 @@ def index():
 
 @app.route('/tests')
 def tests():
-    return render_template('tests.html')
+    return render_template('behavior_test.html')
 
 @app.route('/try')
 def trying():
     return render_template('try.html')
+
+@app.route('/home')
+def home():
+    return render_template('home.html')
 
 
 
