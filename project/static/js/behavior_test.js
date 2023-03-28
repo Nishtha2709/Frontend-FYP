@@ -1,4 +1,4 @@
-const MAX_DATA_COUNT = 1;
+const MAX_DATA_COUNT = 10;
 //connect to the socket server.
 //var socket = io.connect("http://" + "127.0.0.1" + ":" + "5000");
 
@@ -101,35 +101,35 @@ console.log("socket connected");
 //     }
 // });
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{/* <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> */}
 
-    const ctx = document.getElementById('myChart');
+    // const ctx = document.getElementById('myChart');
 
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                // label: '# of Votes',
-                data: [12, 19, 3, 5, 2, 3],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-    const behaviorTest = document.getElementById('behavior_test');
-    behaviorTest.addEventListener('change',testTracker);
-    function testTracker(){
-        console.log(behaviorTest.value);
-        behaviorTest.value.split(',');
-        myChart.data.datasets[0].data = behaviorTest.value.split(',');
-        myChart.update();
-    }
+    // new Chart(ctx, {
+    //     type: 'bar',
+    //     data: {
+    //         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    //         datasets: [{
+    //             // label: '# of Votes',
+    //             data: [12, 19, 3, 5, 2, 3],
+    //             borderWidth: 1
+    //         }]
+    //     },
+    //     options: {
+    //         scales: {
+    //             y: {
+    //                 beginAtZero: true
+    //             }
+    //         }
+    //     }
+    // });
+    // const behaviorTest = document.getElementById('behavior_test');
+    // behaviorTest.addEventListener('change',testTracker);
+    // function testTracker(){
+    //     console.log(behaviorTest.value);
+    //     behaviorTest.value.split(',');
+    //     myChart.data.datasets[0].data = behaviorTest.value.split(',');
+    //     myChart.update();
+    // }
 
 

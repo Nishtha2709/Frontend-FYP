@@ -240,185 +240,110 @@
                     <div class="col-12">
 
                         <div class="chartBox">
-                            <canvas id="myChart"></canvas>
+                            <canvas id="myRatioChart"></canvas>
                         </div>
 
-                        <div class="selectBox">
+                        <div>
+                            <label>Select a dataset:</label>
+                            <select id="dataset-select">
+                                <option value="dataset1">Dataset 1</option>
+                                <option value="dataset2">Dataset 2</option>
+                            </select>
+                        </div>
+
+                        <!-- ==========Original======== -->
+                        <!-- <div class="selectBox">
                             <select id="behaviorTest">
-                                <option value="12,19,3,5,2,3">Ratio Test</option>
+                                <option value="ratio">Ratio Test</option>
                                 <option value="5,1,20,2,7,11">Efficiency</option>
                                 <option value="10,19,3,5,2,3">Winding Resistance</option>
                                 <option value="2,7,1,16,12,13">Oil Temperature</option>
                             </select>
-                        </div>
+                        </div> -->
 
                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"
+            integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ=="
+            crossorigin="anonymous"></script>
 
                         <script>
 
+                            // ====================myRatioChart start===========================================
+                            var ctx = document.getElementById('myRatioChart').getContext('2d');
 
-                            const ctx = document.getElementById('myChart').getContext('2d');
-                            const myChart = new Chart(ctx, {
-                                type: 'line',
-                                reponsive: true,
+                            var datasets = {
+                                dataset1: {
+                                    label: "Dataset 1",
+                                    data: [],
+                                    backgroundColor: "rgba(255, 99, 132, 0.2)",
+                                    borderColor: "rgba(255, 99, 132, 1)",
+                                    borderWidth: 1,
+                                },
+                                dataset2: {
+                                    label: "Dataset 2",
+                                    data: [],
+                                    backgroundColor: "rgba(54, 162, 235, 0.2)",
+                                    borderColor: "rgba(54, 162, 235, 1)",
+                                    borderWidth: 1,
+                                },
+                            };
+                            var myRatioChart = new Chart(ctx, {
+                                type: "bar",
                                 data: {
-                                    labels: ['red', 'blue', 'yellow', 'greeen', 'purple', 'orange'],
-                                    datasets: [
-                                        {
-                                            label: 'Ratio Test',
-                                            data: [12, 19, 3, 5, 2, 3],
-                                            borderWidth: 1
-                                        }
-                                    ]
+                                    datasets: [datasets.dataset1],
                                 },
                                 options: {
+                                    responsive: true,
                                     scales: {
-                                        y: {
-                                            beginAtZero: true
-                                        }
-                                    }
-                                }
+                                        yAxes: [
+                                            {
+                                                ticks: {
+                                                    beginAtZero: true,
+                                                },
+                                            },
+                                        ],
+                                    },
+                                },
                             });
 
-                            const behaviorTest = document.getElementById('behaviorTest');
-                            behaviorTest.addEventListener('change', testTracker);
-                            function testTracker() {
-                                const label = behaviorTest.options[behaviorTest.selectedIndex].text;
-                                myChart.data.datasets[0].label = label;
-                                myChart.data.datasets[0].data = behaviorTest.value.split(',');
-                                myChart.update();
-                            }
+                            // Initialize Socket.io
+                            var socket = io.connect();
 
-                            //receive details from server
+                            // Add event listener to dropdown
+                            var datasetSelect = document.getElementById("dataset-select");
+                            datasetSelect.addEventListener("change", function () {
+                                var selectedDataset = datasetSelect.value;
+                                // socketio.emit('transformerTestData', {'ratio_test':ratio_test_value,
+                                //               'efficiency':efficiency_value,
+                                //               'winding_resistance_diff':winding_resistance_diff,
+                                //               'oil_temperature':oil_temperature})
+                            });
+
+                            // Receive data from server
                             socket.on("transformerTestData", function (msg) {
-                                console.log("Received sensorData :: " + msg.date + " :: " + msg.ratio_test);
-
-                                // Show only MAX_DATA_COUNT data
-                                if (myChart.data.labels.length > MAX_DATA_COUNT) {
-                                    removeFirstData(myChart);
-                                }
-                                addData(msg.date, msg.ratio_test, myChart);
+                                console.log("Received sensorData :: " + msg.ratio_test);
+                                myRatioChart.data.datasets = [datasets[data.label]];
+                                myRatioChart.data.datasets[0].data = msg.ratio_test;
+                                myRatioChart.update();
                             });
+
+
+                            // =================OG=========================
+                            // const behaviorTest = document.getElementById('behaviorTest');
+                            // behaviorTest.addEventListener('change', testTracker);
+                            // function testTracker() {
+                            //     const label = behaviorTest.options[behaviorTest.selectedIndex].text;
+                            //     myRatioChart.data.datasets[0].label = label;
+                            //     myRatioChart.data.datasets[0].data = behaviorTest.value.split(',');
+                            //     myRatioChart.update();
+                            // }
+
+
+
+
+                            // =====================myRatioChart end====================================
+
                         </script>
-                        <!-- <div class="chartCard">
-                            <div class="chartBox">
-
-                                <canvas id="myChart"></canvas>
-                                <select onchange="changeChart(this)">
-                                    <optgroup label="Select Chart"></optgroup>
-                                    <option value="bar">Bar</option>
-                                    <option value="pie">Pie</option>
-                                    <option value="line">Line</option>
-                                    <option value="Radar">radar</option>
-                                    <option value="bar">Bar</option>
-                                </select>
-
-                            </div>
-                        </div> -->
-
-                        <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
-
-                        <!-- <script>
-                            const data = {
-
-                                labels: ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'],
-                                datasets: [
-                                    {
-                                        label: 'Weekly Sales',
-                                        data: [18, 12, 6, 9, 12, 3, 9],
-                                        borderWidth: 1,
-                                    }
-                                ]
-
-                            };
-
-                            const config = {
-                                type: 'bar',
-                                data,
-                                options: {
-                                    scales: {
-                                        y: {
-                                            beginAtZero: true
-                                        }
-                                    }
-                                }
-                            };
-
-                            const config2 = {
-                                type: 'line',
-                                data,
-                                options: {
-                                    scales: {
-                                        y: {
-                                            beginAtZero: true
-                                        }
-                                    }
-                                }
-                            };
-
-                            const config3 = {
-                                type: 'pie',
-                                responsive: true,
-                                data,
-                                options: {
-
-                                }
-                            };
-
-                            const config4 = {
-                                type: 'radar',
-                                data,
-                                options: {
-                                    scales: {
-
-                                    }
-                                }
-                            };
-
-                            let myChart = new Chart(
-                                document.getElementById('myChart'),
-
-                                config
-                            );
-
-                            function changeChart(chartType) {
-                                // console.log(chartType);
-                                console.log(chartType.value);
-                                myChart.destroy();
-
-                                if (chartType.value === 'bar') {
-                                    myChart = new Chart(
-                                        document.getElementById('myChart'),
-                                        config
-                                    );
-                                }
-
-                                if (chartType.value === 'line') {
-                                    myChart = new Chart(
-                                        document.getElementById('myChart'),
-                                        config2
-                                    );
-                                }
-
-                                if (chartType.value === 'pie') {
-                                    myChart = new Chart(
-                                        document.getElementById('myChart'),
-                                        config3
-                                    );
-                                }
-
-                                if (chartType.value === 'radar') {
-                                    myChart = new Chart(
-                                        document.getElementById('myChart'),
-                                        config4
-                                    );
-                                }
-
-                            }
-                        </script> -->
-
-
-
                     </div>
                 </div>
 
@@ -482,20 +407,26 @@
                         <span class="badge dark-badge ml-2"></span>
                         <span class="color-label">DARK MODE</span>
                     </li>
-                    <!-- <li class="button-container">
-            <a href="https://www.creative-tim.com/product/black-dashboard" target="_blank" class="btn btn-primary btn-block btn-round">Download Now</a>
-            <a href="https://demos.creative-tim.com/black-dashboard/docs/1.0/getting-started/introduction.html" target="_blank" class="btn btn-default btn-block btn-round">
-              Documentation
-            </a> 
-          </li> -->
-                    <!-- <li class="header-title">Thank you for 95 shares!</li>
-          <li class="button-container text-center">
-            <button id="twitter" class="btn btn-round btn-info"><i class="fab fa-twitter"></i> &middot; 45</button>
-            <button id="facebook" class="btn btn-round btn-info"><i class="fab fa-facebook-f"></i> &middot; 50</button>
-            <br>
-            <br>
-            <a class="github-button" href="https://github.com/creativetimofficial/black-dashboard" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Star</a>
-          </li> -->
+                    <li class="button-container">
+                        <a href="https://www.creative-tim.com/product/black-dashboard" target="_blank"
+                            class="btn btn-primary btn-block btn-round">Download Now</a>
+                        <a href="https://demos.creative-tim.com/black-dashboard/docs/1.0/getting-started/introduction.html"
+                            target="_blank" class="btn btn-default btn-block btn-round">
+                            Documentation
+                        </a>
+                    </li>
+                    <li class="header-title">Thank you for 95 shares!</li>
+                    <li class="button-container text-center">
+                        <button id="twitter" class="btn btn-round btn-info"><i class="fab fa-twitter"></i> &middot;
+                            45</button>
+                        <button id="facebook" class="btn btn-round btn-info"><i class="fab fa-facebook-f"></i> &middot;
+                            50</button>
+                        <br>
+                        <br>
+                        <a class="github-button" href="https://github.com/creativetimofficial/black-dashboard"
+                            data-icon="octicon-star" data-size="large" data-show-count="true"
+                            aria-label="Star ntkme/github-buttons on GitHub">Star</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -515,10 +446,8 @@
         <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
         <script src="../static/js/black-dashboard.min.js?v=1.0.0" type="text/javascript"></script>
         <!-- Black Dashboard DEMO methods, don't include it in your project! -->
-        <script src="../static/js/demo.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"
-            integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ=="
-            crossorigin="anonymous"></script>
+        <script src="../static/js/prescriptive.js"></script>
+       
         <!-- behavior_test.js file -->
         <script src="../static/js/behavior_test.js"></script>
 

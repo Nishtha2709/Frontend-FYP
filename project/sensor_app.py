@@ -43,6 +43,10 @@ def trying():
 def home():
     return render_template('home.html')
 
+@app.route('/prescriptive')
+def prescriptive():
+    return render_template('prescriptive.html')
+
 
 
 #------------------------------------Socket Connection------------------------------------#

@@ -6,7 +6,7 @@ def ratio_test(I1, I2):
     req_ratio = 25
     curr_ratio = I2 / I1
     err = abs(req_ratio - curr_ratio) / req_ratio
-    per_err = err * 100
+    per_err = err*100
     return per_err
 
 # function to calculate the efficiency of the transformer
