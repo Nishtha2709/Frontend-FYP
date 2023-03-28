@@ -238,16 +238,69 @@
             <div class="content">
                 <div class="row">
                     <div class="col-12">
-                        <!-- <div class="selectBox">
-                            <select id="behavior_test">
-                                <option value="12, 19, 3, 5, 2, 3">Ratio Test</option>
-                                <option value="5, 8, 13, 6, 2, 1">Efficiency</option>
-                                <option value="20, 15, 3, 15, 3, 12">Winding Resistance</option>
-                                <option value="1, 7, 3, 5, 2, 3">Oil Temperature</option>
-                            </select>
-                        </div> -->
 
-                        <div class="chartCard">
+                        <div class="chartBox">
+                            <canvas id="myChart"></canvas>
+                        </div>
+
+                        <div class="selectBox">
+                            <select id="behaviorTest">
+                                <option value="12,19,3,5,2,3">Ratio Test</option>
+                                <option value="5,1,20,2,7,11">Efficiency</option>
+                                <option value="10,19,3,5,2,3">Winding Resistance</option>
+                                <option value="2,7,1,16,12,13">Oil Temperature</option>
+                            </select>
+                        </div>
+
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+                        <script>
+
+
+                            const ctx = document.getElementById('myChart').getContext('2d');
+                            const myChart = new Chart(ctx, {
+                                type: 'line',
+                                reponsive: true,
+                                data: {
+                                    labels: ['red', 'blue', 'yellow', 'greeen', 'purple', 'orange'],
+                                    datasets: [
+                                        {
+                                            label: 'Ratio Test',
+                                            data: [12, 19, 3, 5, 2, 3],
+                                            borderWidth: 1
+                                        }
+                                    ]
+                                },
+                                options: {
+                                    scales: {
+                                        y: {
+                                            beginAtZero: true
+                                        }
+                                    }
+                                }
+                            });
+
+                            const behaviorTest = document.getElementById('behaviorTest');
+                            behaviorTest.addEventListener('change', testTracker);
+                            function testTracker() {
+                                const label = behaviorTest.options[behaviorTest.selectedIndex].text;
+                                myChart.data.datasets[0].label = label;
+                                myChart.data.datasets[0].data = behaviorTest.value.split(',');
+                                myChart.update();
+                            }
+
+                            //receive details from server
+                            socket.on("transformerTestData", function (msg) {
+                                console.log("Received sensorData :: " + msg.date + " :: " + msg.ratio_test);
+
+                                // Show only MAX_DATA_COUNT data
+                                if (myChart.data.labels.length > MAX_DATA_COUNT) {
+                                    removeFirstData(myChart);
+                                }
+                                addData(msg.date, msg.ratio_test, myChart);
+                            });
+                        </script>
+                        <!-- <div class="chartCard">
                             <div class="chartBox">
 
                                 <canvas id="myChart"></canvas>
@@ -261,15 +314,13 @@
                                 </select>
 
                             </div>
-                        </div>
+                        </div> -->
 
+                        <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
 
-
-
-                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-                        <script>
+                        <!-- <script>
                             const data = {
+
                                 labels: ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'],
                                 datasets: [
                                     {
@@ -278,6 +329,7 @@
                                         borderWidth: 1,
                                     }
                                 ]
+
                             };
 
                             const config = {
@@ -306,6 +358,7 @@
 
                             const config3 = {
                                 type: 'pie',
+                                responsive: true,
                                 data,
                                 options: {
 
@@ -317,13 +370,14 @@
                                 data,
                                 options: {
                                     scales: {
-                                        
+
                                     }
                                 }
                             };
 
                             let myChart = new Chart(
                                 document.getElementById('myChart'),
+
                                 config
                             );
 
@@ -332,28 +386,28 @@
                                 console.log(chartType.value);
                                 myChart.destroy();
 
-                                if (chartType.value === 'bar'){
+                                if (chartType.value === 'bar') {
                                     myChart = new Chart(
                                         document.getElementById('myChart'),
                                         config
                                     );
                                 }
 
-                                if (chartType.value === 'line'){
+                                if (chartType.value === 'line') {
                                     myChart = new Chart(
                                         document.getElementById('myChart'),
                                         config2
                                     );
                                 }
 
-                                if (chartType.value === 'pie'){
+                                if (chartType.value === 'pie') {
                                     myChart = new Chart(
                                         document.getElementById('myChart'),
                                         config3
                                     );
                                 }
 
-                                if (chartType.value === 'radar'){
+                                if (chartType.value === 'radar') {
                                     myChart = new Chart(
                                         document.getElementById('myChart'),
                                         config4
@@ -361,7 +415,7 @@
                                 }
 
                             }
-                        </script>
+                        </script> -->
 
 
 
