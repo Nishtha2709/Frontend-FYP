@@ -198,21 +198,20 @@
                     </div>
                 </div>
             </div>
-            <!-- End Navbar -->
+            <!------------------------ End Navbar ------------------------------->
 
+            <!------------------------ CHARTS START ----------------------------->
             <div class="content">
-
-
                 <div class="row">
+                    <!---------------- RATIO CHART START ------------------>
                     <div class="col-lg-6">
                         <div class="card card-chart text-center">
                             <div class="card-header ">
-                                <div class="row">
-                                    <div class="col-sm-6 text-center">
-                                        <h5 class="card-category" >Ratio Test</h5>
-                                        <!-- <h2 class="card-title">Voltage</h2> -->
-                                    </div>
-                                </div>
+
+                                <!-- <h5 class="card-category">Ratio Test</h5> -->
+                                <h3 class="card-title">Ratio Test</h3>
+
+
                             </div>
                             <div class="card-body">
                                 <div class="chart-area" style="height: 280px;">
@@ -221,23 +220,39 @@
                                 <a href="#" class="btn btn-primary">Go somewhere</a>
                             </div>
                         </div>
-
-
                     </div>
+                    <!----------------- RATIO CHART END --------------------->
 
+                    <!----------------- EFFICIENCY CHART START -------------->
                     <div class="col-lg-6">
+                        <div class="card card-chart text-center">
+                            <div class="card-header ">
+                                <!-- <h class="card-category">Efficiency </h1> -->
+                                <h3 class="card-title">Efficiency</h3>
+                            </div>
+                            <div class="card-body ">
+                                <div class="chart-area" style="height: 280px">
+                                    <canvas id="chartLinePurple"></canvas>
+                                </div>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!----------------- EFFICIENCY CHART END -------------->
+                </div>
+                <!--------------------- ROW 1 END--------------------------->
 
 
+                <!--------------------- ROW 2 START ------------------------>
+                <div class="row">
+                    <!----------------- OIL TEMPERATURE START -------------->
+                    <div class="col-lg-6">
                         <div class="row">
                             <div class="col-12">
                                 <div class="card card-chart text-center">
                                     <div class="card-header ">
-                                        <div class="row">
-                                            <div class="col-sm-6 text-left">
-                                                <h5 class="card-category">Secondary Current</h5>
-                                                <!-- <h2 class="card-title">Current</h2> -->
-                                            </div>
-                                        </div>
+                                        <!-- <h5 class="card-category">Secondary Current</h5> -->
+                                        <h3 class="card-title">Oil Temperature</h3>
                                     </div>
                                     <div class="card-body">
                                         <div class="chart-area" style="height: 280px;">
@@ -248,38 +263,15 @@
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
+                    <!------------------- OIL TEMPERATURE END --------------->
 
-                </div>
-
-
-
-
-
-
-                <div class="row">
+                    <!------------------ WINDING RESISTANCE START ---------------->
                     <div class="col-lg-6">
                         <div class="card card-chart text-center">
                             <div class="card-header ">
-                                <h1 class="card-category">Ratio Test </h1>
-                                <!-- <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary "></i> Oil Temperature</h3> -->
-                            </div>
-                            <div class="card-body ">
-                                <div class="chart-area" style="height: 280px">
-                                    <canvas id="chartLinePurple"></canvas>
-                                </div>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="card card-chart text-center">
-                            <div class="card-header ">
-                                <h5 class="card-category">Primary Voltage</h5>
-                                <!-- <h3 class="card-title "><i class="tim-icons icon-send text-success "></i> Frequency</h3> -->
+                                <!-- <h5 class="card-category">Oil Temperature</h5> -->
+                                <h3 class="card-title ">Winding Resistance</h3>
                             </div>
                             <div class="card-body">
                                 <div class="chart-area" style="height: 280px;">
@@ -287,11 +279,13 @@
                                 </div>
                                 <a href="#" class="btn btn-primary">Go somewhere</a>
                             </div>
-
                         </div>
                     </div>
+                    <!----------------- WINDING RESISTANCE END ---------------->
                 </div>
+                <!--------------------- ROW 2 END   ------------------------>
             </div>
+            <!------------------------ CHARTS END   ----------------------------->
 
 
 

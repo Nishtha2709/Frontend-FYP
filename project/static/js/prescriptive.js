@@ -156,8 +156,8 @@ demo = {
             zeroLineColor: "transparent",
           },
           ticks: {
-            suggestedMin: 10.9,
-            suggestedMax: 11.1,
+            suggestedMin: 80,
+            suggestedMax: 90,
             padding: 20,
             fontColor: "#2380f7"
           }
@@ -252,8 +252,8 @@ demo = {
             zeroLineColor: "transparent",
           },
           ticks: {
-            suggestedMin: 37,
-            suggestedMax: 38,
+            suggestedMin: 0.20,
+            suggestedMax: 0.25,
             padding: 20,
             fontColor: "#9a9a9a"
           }
@@ -300,8 +300,8 @@ demo = {
             zeroLineColor: "transparent",
           },
           ticks: {
-            suggestedMin: 0.44,
-            suggestedMax: 0.45,
+            suggestedMin: 0.95,
+            suggestedMax: 0.99,
             padding: 20,
             fontColor: "#ff8a76"
           }
@@ -348,8 +348,8 @@ demo = {
             zeroLineColor: "transparent",
           },
           ticks: {
-            suggestedMin: 10.90,
-            suggestedMax: 11.2,
+            suggestedMin: 1.95,
+            suggestedMax: 1.99,
             padding: 20,
             fontColor: "#9e9e9e"
           }
@@ -454,9 +454,6 @@ demo = {
             }]
           },
           options: gradientChartOptionsConfigurationWithTooltipPurple,
-          yAxes:[
-    
-          ]
         });
     
         //receive details from server
@@ -490,7 +487,7 @@ demo = {
       data: {
         //labels: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN'],
         datasets: [{
-          label: "Ratio Test",
+          label: "Efficiency",
           fill: true,
           backgroundColor: gradientStroke,
           borderColor: '#d048b6',
@@ -526,9 +523,58 @@ demo = {
     //=======================  chart end : Efficiency =======================
 
 
+     // =================== chart start : oil temperature =====================
+     var ctx = document.getElementById("chartBig2").getContext('2d');
+
+     var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+ 
+     gradientStroke.addColorStop(1, 'rgba(72,72,176,0.1)');
+     gradientStroke.addColorStop(0.4, 'rgba(72,72,176,0.0)');
+     gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+ 
+     var mySecCurrChart = new Chart(ctx, {
+       type: 'line',
+       responsive: true,
+       legend: {
+         display: false
+       },
+       data: {
+         // labels: chart_labels,
+         datasets: [{
+           label: "Oil Temperature",
+           fill: true,
+           backgroundColor: gradientStroke,
+           borderColor: '#d346b1',
+           borderWidth: 2,
+           borderDash: [],
+           borderDashOffset: 0.0,
+           pointBackgroundColor: '#d346b1',
+           pointBorderColor: 'rgba(255,255,255,0)',
+           pointHoverBackgroundColor: '#d346b1',
+           pointBorderWidth: 20,
+           pointHoverRadius: 4,
+           pointHoverBorderWidth: 15,
+           pointRadius: 4,
+           // data: chart_data,
+         }]
+       },
+       options: gradientChartOptionsConfigurationWithTooltipBlue
+     });
+ 
+     //receive details from server
+     socket.on("transformerTestData", function (msg) {
+       console.log("Received sensorData :: " + msg.date + " :: " + msg.oil_temperature);
+ 
+       // Show only MAX_DATA_COUNT data
+       if (mySecCurrChart.data.labels.length > MAX_DATA_COUNT) {
+         removeFirstData(mySecCurrChart);
+       }
+       addData(msg.date, msg.oil_temperature, mySecCurrChart);
+     });
+     //===================== chart end : oil temperature ==================================
 
 
-    //====================== chart start : Primary voltage ==========================
+    //====================== chart start : Winding Resistance ==========================
     var ctxGreen = document.getElementById("chartLineGreen").getContext("2d");
 
     var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
@@ -547,7 +593,7 @@ demo = {
       data: {
         // labels: ['JUL', 'AUG', 'SEP', 'OCT', 'NOV'],
         datasets: [{
-          label: "Primary Voltage",
+          label: "Winding Resistance",
           fill: true,
           backgroundColor: gradientStroke,
           borderColor: '#00d6b4',
@@ -569,7 +615,7 @@ demo = {
 
     });
 
-    socket.on("updateSensorData", function (msg) {
+    socket.on("transformerTestData", function (msg) {
       console.log("Received sensorData :: " + msg.winding_resistance_diff);
 
       // Show only MAX_DATA_COUNT data
@@ -581,7 +627,7 @@ demo = {
 
 
 
-    // ======================= chart end : Secondary Voltage ==============================
+    // ======================= chart end : Winding Resistance ==============================
 
 
 
@@ -590,98 +636,49 @@ demo = {
 
 
 
-    // =================== chart start : secondary current =====================
-    var ctx = document.getElementById("chartBig2").getContext('2d');
-
-    var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
-
-    gradientStroke.addColorStop(1, 'rgba(72,72,176,0.1)');
-    gradientStroke.addColorStop(0.4, 'rgba(72,72,176,0.0)');
-    gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
-
-    var mySecCurrChart = new Chart(ctx, {
-      type: 'line',
-      responsive: true,
-      legend: {
-        display: false
-      },
-      data: {
-        // labels: chart_labels,
-        datasets: [{
-          label: "Efficiency",
-          fill: true,
-          backgroundColor: gradientStroke,
-          borderColor: '#d346b1',
-          borderWidth: 2,
-          borderDash: [],
-          borderDashOffset: 0.0,
-          pointBackgroundColor: '#d346b1',
-          pointBorderColor: 'rgba(255,255,255,0)',
-          pointHoverBackgroundColor: '#d346b1',
-          pointBorderWidth: 20,
-          pointHoverRadius: 4,
-          pointHoverBorderWidth: 15,
-          pointRadius: 4,
-          // data: chart_data,
-        }]
-      },
-      options: gradientChartOptionsConfigurationWithTooltipPurple2
-    });
-
-    //receive details from server
-    socket.on("transformerTestData", function (msg) {
-      console.log("Received sensorData :: " + msg.date + " :: " + msg.efficiency);
-
-      // Show only MAX_DATA_COUNT data
-      if (mySecCurrChart.data.labels.length > MAX_DATA_COUNT) {
-        removeFirstData(mySecCurrChart);
-      }
-      addData(msg.date, msg.efficiency, mySecCurrChart);
-    });
-
-
+   
 
     // ================== winding temperature =================================
-    var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+    // var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
 
-    gradientStroke.addColorStop(1, 'rgba(29,140,248,0.2)');
-    gradientStroke.addColorStop(0.4, 'rgba(29,140,248,0.0)');
-    gradientStroke.addColorStop(0, 'rgba(29,140,248,0)'); //blue colors
+    // gradientStroke.addColorStop(1, 'rgba(29,140,248,0.2)');
+    // gradientStroke.addColorStop(0.4, 'rgba(29,140,248,0.0)');
+    // gradientStroke.addColorStop(0, 'rgba(29,140,248,0)'); //blue colors
 
-    var ctx = document.getElementById("CountryChart").getContext("2d");
-    var myChart = new Chart(ctx, {
-      type: 'line',
-      responsive: true,
-      legend: {
-        display: false
-      },
-      data: {
-        // labels: ['USA', 'GER', 'AUS', 'UK', 'RO', 'BR'],
-        datasets: [{
-          label: "Temperature",
-          fill: true,
-          backgroundColor: gradientStroke,
-          hoverBackgroundColor: gradientStroke,
-          borderColor: '#1f8ef1',
-          borderWidth: 2,
-          borderDash: [],
-          borderDashOffset: 0.0,
-          // data: [53, 20, 10, 80, 100, 45],
-        }]
-      },
-      options: gradientChartOptionsConfigurationWithTooltipBlue
-    });
+    // var ctx = document.getElementById("CountryChart").getContext("2d");
+    // var myChart = new Chart(ctx, {
+    //   type: 'line',
+    //   responsive: true,
+    //   legend: {
+    //     display: false
+    //   },
+    //   data: {
+    //     // labels: ['USA', 'GER', 'AUS', 'UK', 'RO', 'BR'],
+    //     datasets: [{
+    //       label: "Temperature",
+    //       fill: true,
+    //       backgroundColor: gradientStroke,
+    //       hoverBackgroundColor: gradientStroke,
+    //       borderColor: '#1f8ef1',
+    //       borderWidth: 2,
+    //       borderDash: [],
+    //       borderDashOffset: 0.0,
+    //       // data: [53, 20, 10, 80, 100, 45],
+    //     }]
+    //   },
+    //   options: gradientChartOptionsConfigurationWithTooltipBlue
+    // });
 
-    //receive details from server
-    socket.on("updateSensorData", function (msg) {
-      console.log("Received sensorData :: " + msg.date + " :: " + msg.primary_vl_value);
+    // //receive details from server
+    // socket.on("updateSensorData", function (msg) {
+    //   console.log("Received sensorData :: " + msg.date + " :: " + msg.primary_vl_value);
 
-      // Show only MAX_DATA_COUNT data
-      if (myChart.data.labels.length > MAX_DATA_COUNT) {
-        removeFirstData(myChart);
-      }
-      addData(msg.date, msg.primary_vl_value, myChart);
-    });
+    //   // Show only MAX_DATA_COUNT data
+    //   if (myChart.data.labels.length > MAX_DATA_COUNT) {
+    //     removeFirstData(myChart);
+    //   }
+    //   addData(msg.date, msg.primary_vl_value, myChart);
+    // });
 
   }
 
