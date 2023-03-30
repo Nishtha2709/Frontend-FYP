@@ -262,9 +262,10 @@
                         </div> -->
 
                         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                         <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"
-            integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ=="
-            crossorigin="anonymous"></script>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"
+                            integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ=="
+                            crossorigin="anonymous"></script>
+                            <script src="../static/js/behavior_test.js"></script>
 
                         <script>
 
@@ -307,22 +308,25 @@
                             });
 
                             // Initialize Socket.io
-                            var socket = io.connect();
+                            //var socket = io.connect();
 
                             // Add event listener to dropdown
-                            var datasetSelect = document.getElementById("dataset-select");
-                            datasetSelect.addEventListener("change", function () {
+                            
+                            //datasetSelect.addEventListener("change", function () {
                                 var selectedDataset = datasetSelect.value;
                                 // socketio.emit('transformerTestData', {'ratio_test':ratio_test_value,
                                 //               'efficiency':efficiency_value,
                                 //               'winding_resistance_diff':winding_resistance_diff,
                                 //               'oil_temperature':oil_temperature})
-                            });
+                            //});
 
+                            var datasetSelect = document.getElementById("dataset-select");
+                                
                             // Receive data from server
                             socket.on("transformerTestData", function (msg) {
                                 console.log("Received sensorData :: " + msg.ratio_test);
-                                myRatioChart.data.datasets = [datasets[data.label]];
+                                // change the label to chosen value from dropdown
+                                myRatioChart.data.datasets = [datasets[datasetSelect]];
                                 myRatioChart.data.datasets[0].data = msg.ratio_test;
                                 myRatioChart.update();
                             });
@@ -446,11 +450,11 @@
         <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
         <script src="../static/js/black-dashboard.min.js?v=1.0.0" type="text/javascript"></script>
         <!-- Black Dashboard DEMO methods, don't include it in your project! -->
-        <script src="../static/js/prescriptive.js"></script>
-       
-        <!-- behavior_test.js file -->
-        <script src="../static/js/behavior_test.js"></script>
+        <!-- <script src="../static/js/prescriptive.js"></script> -->
 
+        <!-- behavior_test.js file -->
+        <!-- <script src="../static/js/demo.js"></script> -->
+        
 
         <script>
             $(document).ready(function () {

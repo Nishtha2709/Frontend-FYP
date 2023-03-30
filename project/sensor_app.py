@@ -29,11 +29,15 @@ Serve root index file
 """
 @app.route('/')
 def index():
+    return render_template('home.html')
+
+@app.route('/dashboard')
+def dashboard():
     return render_template('dashboard.html')
 
 @app.route('/tests')
 def tests():
-    return render_template('behavior_test.html')
+    return render_template('descriptive.html')
 
 @app.route('/try')
 def trying():
@@ -46,6 +50,14 @@ def home():
 @app.route('/prescriptive')
 def prescriptive():
     return render_template('prescriptive.html')
+
+@app.route('/login')
+def login():
+    return render_template('login.html')   
+
+@app.route('/signup')
+def signup():
+    return render_template('signup.html')
 
 
 

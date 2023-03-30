@@ -22,6 +22,7 @@
     <!-- CSS Files -->
     <link rel="stylesheet" href="{{url_for('static', filename='css/black-dashboard.css')}}" />
     <link href="{{url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/condition.css')}}">
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <!-- <link href="../static/demo/demo.css" rel="stylesheet" /> -->
@@ -215,10 +216,18 @@
                             </div>
                             <div class="card-body">
                                 <div class="chart-area" style="height: 280px;">
+
                                     <canvas id="chartBig1"></canvas>
                                 </div>
+                                
                                 <a href="#" class="btn btn-primary">Go somewhere</a>
+                                <div class="result-box">
+                                    <span class="result-text btn btn-primary" id="test1"></span>
+                                </div>
+                                
                             </div>
+
+                            
                         </div>
                     </div>
                     <!----------------- RATIO CHART END --------------------->
@@ -235,6 +244,9 @@
                                     <canvas id="chartLinePurple"></canvas>
                                 </div>
                                 <a href="#" class="btn btn-primary">Go somewhere</a>
+                                <div class="result-box1">
+                                    <span class="result-text1" id="test2"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -389,10 +401,13 @@
     <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="../static/js/black-dashboard.min.js?v=1.0.0" type="text/javascript"></script>
     <!-- Black Dashboard DEMO methods, don't include it in your project! -->
-    <script src="../static/js/prescriptive.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"
-        integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ=="
-        crossorigin="anonymous"></script>
+    integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ=="
+    crossorigin="anonymous"></script>
+    <script src="../static/js/condition.js"></script>
+    <script src="../static/js/prescriptive.js"></script>
+    
+   
     <script>
         $(document).ready(function () {
             $().ready(function () {
@@ -406,7 +421,7 @@
                 white_color = false;
 
                 window_width = $(window).width();
-
+                
                 fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
 
 
@@ -503,6 +518,9 @@
                 });
             });
         });
+
+
+        
     </script>
     <script>
         $(document).ready(function () {
@@ -511,6 +529,8 @@
 
         });
 
+
+        
     </script>
 
 </body>
