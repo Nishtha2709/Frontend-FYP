@@ -213,21 +213,23 @@
                                 <h3 class="card-title">Ratio Test</h3>
 
 
+
+
                             </div>
                             <div class="card-body">
                                 <div class="chart-area" style="height: 280px;">
 
                                     <canvas id="chartBig1"></canvas>
                                 </div>
-                                
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                                <div class="result-box">
-                                    <span class="result-text btn btn-primary" id="test1"></span>
-                                </div>
-                                
-                            </div>
 
-                            
+                                <div class="row">
+                                    <div class="result-box" style="margin-left: 200px;">
+                                        <span class="result-text" id="test1"></span>
+                                    </div>
+                                    <a href="#" class="btn btn-primary"
+                                        style="height: 50px; margin-top: 45px; margin-right: 250px;">Analysis</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!----------------- RATIO CHART END --------------------->
@@ -402,12 +404,12 @@
     <script src="../static/js/black-dashboard.min.js?v=1.0.0" type="text/javascript"></script>
     <!-- Black Dashboard DEMO methods, don't include it in your project! -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"
-    integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ=="
-    crossorigin="anonymous"></script>
+        integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ=="
+        crossorigin="anonymous"></script>
     <script src="../static/js/condition.js"></script>
     <script src="../static/js/prescriptive.js"></script>
-    
-   
+
+
     <script>
         $(document).ready(function () {
             $().ready(function () {
@@ -421,7 +423,7 @@
                 white_color = false;
 
                 window_width = $(window).width();
-                
+
                 fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
 
 
@@ -520,7 +522,7 @@
         });
 
 
-        
+
     </script>
     <script>
         $(document).ready(function () {
@@ -530,7 +532,7 @@
         });
 
 
-        
+
     </script>
 
 </body>

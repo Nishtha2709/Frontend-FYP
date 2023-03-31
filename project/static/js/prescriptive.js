@@ -419,54 +419,71 @@ demo = {
     };
 
 
-        // ====================== chart start : Ratio Test ==========================
-        var ctx = document.getElementById("chartBig1").getContext('2d');
+    // ====================== chart start : Ratio Test ==========================
+    var ctx = document.getElementById("chartBig1").getContext('2d');
 
-        var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
-    
-        gradientStroke.addColorStop(1, 'rgba(72,72,176,0.1)');
-        gradientStroke.addColorStop(0.4, 'rgba(72,72,176,0.0)');
-        gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
-    
-        var myPriCurrChart = new Chart(ctx, {
-          type: 'line',
-          responsive: true,
-          legend: {
-            display: false
-          },
-          data: {
-            datasets: [{
-              label: "Ratio Test",
-              fill: true,
-              backgroundColor: gradientStroke,
-              borderColor: '#d346b1',
-              borderWidth: 2,
-              borderDash: [],
-              borderDashOffset: 0.0,
-              pointBackgroundColor: '#d346b1',
-              pointBorderColor: 'rgba(255,255,255,0)',
-              pointHoverBackgroundColor: '#d346b1',
-              pointBorderWidth: 20,
-              pointHoverRadius: 4,
-              pointHoverBorderWidth: 15,
-              pointRadius: 4,
-              // data: chart_data,
-            }]
-          },
-          options: gradientChartOptionsConfigurationWithTooltipPurple,
-        });
-    
-        //receive details from server
-        socket.on("transformerTestData", function (msg) {
-          console.log("Received sensorData :: " + msg.date + " :: " + msg.ratio_test);
-    
-          // Show only MAX_DATA_COUNT data
-          if (myPriCurrChart.data.labels.length > MAX_DATA_COUNT) {
-            removeFirstData(myPriCurrChart);
-          }
-          addData(msg.date, msg.ratio_test, myPriCurrChart);
-        });
-        // ==================== chart end : Ratio Test ===================
+    var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke.addColorStop(1, 'rgba(72,72,176,0.1)');
+    gradientStroke.addColorStop(0.4, 'rgba(72,72,176,0.0)');
+    gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+
+    var myPriCurrChart = new Chart(ctx, {
+      type: 'line',
+      responsive: true,
+      legend: {
+        display: false
+      },
+      data: {
+        datasets: [{
+          label: "Ratio Test",
+          fill: true,
+          backgroundColor: gradientStroke,
+          borderColor: '#d346b1',
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          pointBackgroundColor: '#d346b1',
+          pointBorderColor: 'rgba(255,255,255,0)',
+          pointHoverBackgroundColor: '#d346b1',
+          pointBorderWidth: 20,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 15,
+          pointRadius: 4,
+          // data: chart_data,
+        }]
+      },
+      options: gradientChartOptionsConfigurationWithTooltipPurple,
+    });
+
+    const resultBox = document.querySelector('.result-box');
+    const resultText = document.querySelector('.result-text');
+
+    let hif = 0;
+    let functional_ratio = 0;
+
+    const resultBox1 = document.querySelector('.result-box1');
+    const resultText1 = document.querySelector('.result-text1');
+
+    //receive details from server
+    socket.on("transformerTestData", function (msg) {
+      // console.log("Received sensorData :: " + msg.date + " :: " + msg.ratio_test);
+      var ratioTestValue = msg.ratio_test;
+      console.log("Ratio Test Value " + ratioTestValue);
+
+      // Show only MAX_DATA_COUNT data
+      if (myPriCurrChart.data.labels.length > MAX_DATA_COUNT) {
+        removeFirstData(myPriCurrChart);
+      }
+      addData(msg.date, ratioTestValue, myPriCurrChart);
+
+      
+    });
+
+
+
+
+    // ==================== chart end : Ratio Test ===================
 
 
     // ==================== chart start : Efficiency ================================
@@ -523,55 +540,55 @@ demo = {
     //=======================  chart end : Efficiency =======================
 
 
-     // =================== chart start : oil temperature =====================
-     var ctx = document.getElementById("chartBig2").getContext('2d');
+    // =================== chart start : oil temperature =====================
+    var ctx = document.getElementById("chartBig2").getContext('2d');
 
-     var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
- 
-     gradientStroke.addColorStop(1, 'rgba(72,72,176,0.1)');
-     gradientStroke.addColorStop(0.4, 'rgba(72,72,176,0.0)');
-     gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
- 
-     var mySecCurrChart = new Chart(ctx, {
-       type: 'line',
-       responsive: true,
-       legend: {
-         display: false
-       },
-       data: {
-         // labels: chart_labels,
-         datasets: [{
-           label: "Oil Temperature",
-           fill: true,
-           backgroundColor: gradientStroke,
-           borderColor: '#d346b1',
-           borderWidth: 2,
-           borderDash: [],
-           borderDashOffset: 0.0,
-           pointBackgroundColor: '#d346b1',
-           pointBorderColor: 'rgba(255,255,255,0)',
-           pointHoverBackgroundColor: '#d346b1',
-           pointBorderWidth: 20,
-           pointHoverRadius: 4,
-           pointHoverBorderWidth: 15,
-           pointRadius: 4,
-           // data: chart_data,
-         }]
-       },
-       options: gradientChartOptionsConfigurationWithTooltipBlue
-     });
- 
-     //receive details from server
-     socket.on("transformerTestData", function (msg) {
-       console.log("Received sensorData :: " + msg.date + " :: " + msg.oil_temperature);
- 
-       // Show only MAX_DATA_COUNT data
-       if (mySecCurrChart.data.labels.length > MAX_DATA_COUNT) {
-         removeFirstData(mySecCurrChart);
-       }
-       addData(msg.date, msg.oil_temperature, mySecCurrChart);
-     });
-     //===================== chart end : oil temperature ==================================
+    var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+
+    gradientStroke.addColorStop(1, 'rgba(72,72,176,0.1)');
+    gradientStroke.addColorStop(0.4, 'rgba(72,72,176,0.0)');
+    gradientStroke.addColorStop(0, 'rgba(119,52,169,0)'); //purple colors
+
+    var mySecCurrChart = new Chart(ctx, {
+      type: 'line',
+      responsive: true,
+      legend: {
+        display: false
+      },
+      data: {
+        // labels: chart_labels,
+        datasets: [{
+          label: "Oil Temperature",
+          fill: true,
+          backgroundColor: gradientStroke,
+          borderColor: '#d346b1',
+          borderWidth: 2,
+          borderDash: [],
+          borderDashOffset: 0.0,
+          pointBackgroundColor: '#d346b1',
+          pointBorderColor: 'rgba(255,255,255,0)',
+          pointHoverBackgroundColor: '#d346b1',
+          pointBorderWidth: 20,
+          pointHoverRadius: 4,
+          pointHoverBorderWidth: 15,
+          pointRadius: 4,
+          // data: chart_data,
+        }]
+      },
+      options: gradientChartOptionsConfigurationWithTooltipBlue
+    });
+
+    //receive details from server
+    socket.on("transformerTestData", function (msg) {
+      console.log("Received sensorData :: " + msg.date + " :: " + msg.oil_temperature);
+
+      // Show only MAX_DATA_COUNT data
+      if (mySecCurrChart.data.labels.length > MAX_DATA_COUNT) {
+        removeFirstData(mySecCurrChart);
+      }
+      addData(msg.date, msg.oil_temperature, mySecCurrChart);
+    });
+    //===================== chart end : oil temperature ==================================
 
 
     //====================== chart start : Winding Resistance ==========================
@@ -636,7 +653,7 @@ demo = {
 
 
 
-   
+
 
     // ================== winding temperature =================================
     // var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);

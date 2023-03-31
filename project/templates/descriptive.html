@@ -208,25 +208,25 @@
                     <div class="col-lg-6">
                         <div class="card card-chart text-center">
                             <div class="card-header ">
-
                                 <!-- <h5 class="card-category">Ratio Test</h5> -->
                                 <h3 class="card-title">Ratio Test</h3>
-
-
                             </div>
                             <div class="card-body">
                                 <div class="chart-area" style="height: 280px;">
-
                                     <canvas id="chartBig1"></canvas>
+                                    <!-- <h4 class="text-primary font icon-detail" id="test1"></h4> -->
                                 </div>
-                                
-                                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                                <div class="result-box">
-                                    <span class="result-text btn btn-primary" id="test1"></span>
-                                </div>
-                            </div>
 
-                            
+                                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                                <!-- <div class="result-box">
+                                    <span class="result-text"></span>
+                                </div> -->
+                                <!-- <h1 id="test1">0</h1> -->
+
+                                <!-- <div class="result-box1">
+                                    <span class="result-text1"></span>
+                                  </div> -->
+                            </div>
                         </div>
                     </div>
                     <!----------------- RATIO CHART END --------------------->
@@ -241,11 +241,12 @@
                             <div class="card-body ">
                                 <div class="chart-area" style="height: 280px">
                                     <canvas id="chartLinePurple"></canvas>
+                                    <!-- <h4 class="text-primary font icon-detail" id="test2"></h4> -->
                                 </div>
                                 <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                                <div class="result-box1">
-                                    <span class="result-text1" id="test2"></span>
-                                </div>
+                                <!-- <div class="result-box2">
+                                    <span class="result-text2" id="test2"></span>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -258,20 +259,19 @@
                 <div class="row">
                     <!----------------- OIL TEMPERATURE START -------------->
                     <div class="col-lg-6">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card card-chart text-center">
-                                    <div class="card-header ">
-                                        <!-- <h5 class="card-category">Secondary Current</h5> -->
-                                        <h3 class="card-title">Oil Temperature</h3>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="chart-area" style="height: 280px;">
-                                            <canvas id="chartBig2"></canvas>
-                                        </div>
-                                        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
-                                    </div>
+                        <div class="card card-chart text-center">
+                            <div class="card-header ">
+                                <!-- <h5 class="card-category">Secondary Current</h5> -->
+                                <h3 class="card-title">Oil Temperature</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-area" style="height: 280px;">
+                                    <canvas id="chartBig2"></canvas>
                                 </div>
+                                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                                <!-- <div class="result-box2">
+                                    <span class="result-text2" id="test3"></span>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -288,6 +288,10 @@
                                 <div class="chart-area" style="height: 280px;">
                                     <canvas id="chartLineGreen"></canvas>
                                 </div>
+
+                                <!-- <div class="result-box3">
+                                    <span class="result-text3" id="test4"></span>
+                                </div> -->
                                 <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                             </div>
                         </div>
@@ -297,12 +301,6 @@
                 <!--------------------- ROW 2 END   ------------------------>
             </div>
             <!------------------------ CHARTS END   ----------------------------->
-
-
-
-
-
-
 
 
             <footer class="footer">
@@ -401,12 +399,12 @@
     <script src="../static/js/black-dashboard.min.js?v=1.0.0" type="text/javascript"></script>
     <!-- Black Dashboard DEMO methods, don't include it in your project! -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.4/socket.io.js"
-    integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ=="
-    crossorigin="anonymous"></script>
+        integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ=="
+        crossorigin="anonymous"></script>
     <script src="../static/js/condition.js"></script>
     <script src="../static/js/prescriptive.js"></script>
-    
-   
+
+
     <script>
         $(document).ready(function () {
             $().ready(function () {
@@ -420,7 +418,7 @@
                 white_color = false;
 
                 window_width = $(window).width();
-                
+
                 fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
 
 
@@ -519,7 +517,7 @@
         });
 
 
-        
+
     </script>
     <script>
         $(document).ready(function () {
@@ -529,7 +527,7 @@
         });
 
 
-        
+
     </script>
 
 </body>

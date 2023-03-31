@@ -59,6 +59,10 @@ def login():
 def signup():
     return render_template('signup.html')
 
+@app.route('/analysis')
+def analysis():
+    return render_template('descriptive_analysis.html')
+
 
 
 #------------------------------------Socket Connection------------------------------------#
