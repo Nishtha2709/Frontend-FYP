@@ -11,6 +11,7 @@ console.log("socket connected");
 //=================== RATIO TEST START ------------------------------
 const resultBox = document.querySelector('.result-box');
 const resultText = document.querySelector('.result-text');
+const ratioTestBtn = document.getElementById('.ratioTestBtn');
 
 let hif = 0;
 let functional_ratio = 0;
@@ -38,6 +39,8 @@ socket.on("transformerTestData", function (msg) {
     resultBox1.classList.remove('blue', 'yellow', 'orange', 'red');
     resultText1.textContent = functional_ratio;
 
+    
+
   } else if (msg.ratio_test > 0.1 && msg.ratio_test <= 0.5) {
     resultBox.classList.add('green');
     resultBox.classList.remove('blue', 'yellow', 'orange', 'red');
@@ -48,6 +51,8 @@ socket.on("transformerTestData", function (msg) {
     resultBox1.classList.add('blue');
     resultBox1.classList.remove('green', 'yellow', 'orange', 'red');
     resultText1.textContent = functional_ratio;
+
+
 
   } else if (msg.ratio_test > 0.5 && msg.ratio_test <= 1.0) {
     resultBox.classList.add('yellow');
@@ -95,7 +100,6 @@ const resultText2 = document.querySelector('.result-text2');
 let hif_efficiency = 0;
 let functional_efficiency = 0;
 
-
 // const alertButton1 = document.getElementById("alertButton1");
 
 const resultBox3 = document.querySelector('.result-box3');
@@ -120,15 +124,6 @@ socket.on("transformerTestData", function (msg) {
     resultBox3.classList.remove('green', 'yellow', 'orange', 'red');
     resultText3.textContent = functional_efficiency;
 
-
-
-    // alertButton1.textContent = "Click Me1";
-
-    // alertButton1.addEventListener("click", function () {
-    //   // display the alert
-    //   alert("hello");
-    // });
-
   } else if (msg.efficiency > 0.85 && msg.efficiency <= 0.95) {
     resultBox2.classList.add('green');
     resultBox2.classList.remove('blue', 'yellow', 'orange', 'red');
@@ -139,15 +134,6 @@ socket.on("transformerTestData", function (msg) {
     resultBox3.classList.add('green');
     resultBox3.classList.remove('blue', 'yellow', 'orange', 'red');
     resultText3.textContent = functional_efficiency;
-
-
-
-    // alertButton1.textContent = "Click Me1";
-
-    // alertButton1.addEventListener("click", function () {
-    //   // display the alert
-    //   alert("hello");
-    // });
 
   } else if (msg.efficiency > 0.75 && msg.efficiency <= 0.85) {
     resultBox2.classList.add('yellow');
@@ -160,15 +146,6 @@ socket.on("transformerTestData", function (msg) {
     resultBox3.classList.remove('blue', 'green', 'orange', 'red');
     resultText3.textContent = functional_efficiency;
 
-
-
-    // alertButton1.textContent = "Click Me1";
-
-    // alertButton1.addEventListener("click", function () {
-    //   // display the alert
-    //   alert("hello");
-    // });
-
   } else if (msg.efficiency > 0.60 && msg.efficiency <= 0.75) {
     resultBox2.classList.add('orange');
     resultBox2.classList.remove('green', 'yellow', 'blue', 'red');
@@ -180,16 +157,6 @@ socket.on("transformerTestData", function (msg) {
     resultBox3.classList.remove('blue', 'yellow', 'green', 'red');
     resultText3.textContent = functional_efficiency;
 
-
-
-    // alertButton1.textContent = "Click Me1";
-
-    // alertButton1.addEventListener("click", function () {
-    //   // display the alert
-    //   alert("hello");
-    // });
-
-
   } else if (msg.efficiency <= 0.60) {
     resultBox2.classList.add('red');
     resultBox2.classList.remove('green', 'yellow', 'orange', 'blue');
@@ -200,16 +167,6 @@ socket.on("transformerTestData", function (msg) {
     resultBox3.classList.add('red');
     resultBox3.classList.remove('blue', 'yellow', 'orange', 'green');
     resultText3.textContent = functional_efficiency;
-
-
-
-    // alertButton1.textContent = "Click Me1";
-
-    // alertButton1.addEventListener("click", function () {
-    //   // display the alert
-    //   alert("hello");
-    // });
-
 
   }
 
@@ -237,13 +194,7 @@ socket.on("transformerTestData", function (msg) {
   console.log("Received trasnformerData :: " + msg.winding_resistance_diff);
 
   addData(msg.winding_resistance_diff, "test3");
-
-
-
-
-
   if (msg.winding_resistance_diff < 1.0) {
-
 
     resultBox4.classList.add('blue');
     resultBox4.classList.remove('green', 'yellow', 'orange', 'red');
@@ -254,15 +205,6 @@ socket.on("transformerTestData", function (msg) {
     resultBox5.classList.add('blue');
     resultBox5.classList.remove('green', 'yellow', 'orange', 'red');
     resultText5.textContent = functional_winding;
-
-
-
-    // alertButton2.textContent = "Click Me1";
-
-    // alertButton2.addEventListener("click", function () {
-    //   // display the alert
-    //   alert("hello");
-    // });
 
   } else if (msg.winding_resistance_diff >= 1.0 && msg.winding_resistance_diff < 2.0) {
     resultBox4.classList.add('green');
@@ -275,15 +217,6 @@ socket.on("transformerTestData", function (msg) {
     resultBox5.classList.remove('blue', 'yellow', 'orange', 'red');
     resultText5.textContent = functional_winding;
 
-
-
-    // alertButton2.textContent = "Click Me1";
-
-    // alertButton2.addEventListener("click", function () {
-    //   // display the alert
-    //   alert("hello");
-    // });
-
   } else if (msg.winding_resistance_diff >= 2.0 && msg.winding_resistance_diff < 3.0) {
     resultBox4.classList.add('yellow');
     resultBox4.classList.remove('green', 'blue', 'orange', 'red');
@@ -294,15 +227,6 @@ socket.on("transformerTestData", function (msg) {
     resultBox5.classList.add('yellow');
     resultBox5.classList.remove('blue', 'green', 'orange', 'red');
     resultText5.textContent = functional_winding;
-
-
-
-    // alertButton2.textContent = "Click Me1";
-
-    // alertButton2.addEventListener("click", function () {
-    //   // display the alert
-    //   alert("hello");
-    // });
 
   } else if (msg.winding_resistance_diff >= 3.0 && msg.winding_resistance_diff < 5.0) {
     resultBox4.classList.add('orange');
@@ -315,16 +239,6 @@ socket.on("transformerTestData", function (msg) {
     resultBox5.classList.remove('blue', 'yellow', 'green', 'red');
     resultText5.textContent = functional_winding;
 
-
-
-    // alertButton2.textContent = "Click Me1";
-
-    // alertButton2.addEventListener("click", function () {
-    //   // display the alert
-    //   alert("hello");
-    // });
-
-
   } else if (msg.winding_resistance_diff >= 5.0) {
     resultBox4.classList.add('red');
     resultBox4.classList.remove('green', 'yellow', 'orange', 'blue');
@@ -336,24 +250,7 @@ socket.on("transformerTestData", function (msg) {
     resultBox5.classList.remove('blue', 'yellow', 'orange', 'green');
     resultText5.textContent = functional_winding;
 
-
-
-    // alertButton2.textContent = "Click Me1";
-
-    // alertButton2.addEventListener("click", function () {
-    //   // display the alert
-    //   alert("hello");
-    // });
-
-
   }
-
-
-
-
-
-
-
 
 });
 
@@ -379,11 +276,6 @@ socket.on("transformerTestData", function (msg) {
 
   addData(msg.oil_temperature, "test4");
 
-
-
-
-
-
   if (msg.oil_temperature >= 40 && msg.oil_temperature < 60) {
 
 
@@ -397,15 +289,6 @@ socket.on("transformerTestData", function (msg) {
     resultBox7.classList.remove('green', 'yellow', 'orange', 'red');
     resultText7.textContent = dielectric_oil;
 
-
-
-    // alertButton3.textContent = "Click Me1";
-
-    // alertButton3.addEventListener("click", function () {
-    //   // display the alert
-    //   alert("hello");
-    // });
-
   } else if (msg.oil_temperature >= 60 && msg.oil_temperature < 70) {
     resultBox6.classList.add('green');
     resultBox6.classList.remove('blue', 'yellow', 'orange', 'red');
@@ -418,14 +301,6 @@ socket.on("transformerTestData", function (msg) {
     resultText7.textContent = dielectric_oil;
 
 
-
-    // alertButton3.textContent = "Click Me1";
-
-    // alertButton3.addEventListener("click", function () {
-    //   // display the alert
-    //   alert("hello");
-    // });
-
   } else if (msg.oil_temperature >= 70 && msg.oil_temperature < 80) {
     resultBox6.classList.add('yellow');
     resultBox6.classList.remove('green', 'blue', 'orange', 'red');
@@ -436,15 +311,6 @@ socket.on("transformerTestData", function (msg) {
     resultBox7.classList.add('yellow');
     resultBox7.classList.remove('blue', 'green', 'orange', 'red');
     resultText7.textContent = dielectric_oil;
-
-
-
-    // alertButton3.textContent = "Click Me1";
-
-    // alertButton3.addEventListener("click", function () {
-    //   // display the alert
-    //   alert("hello");
-    // });
 
   } else if (msg.oil_temperature >= 80 && msg.oil_temperature < 90) {
     resultBox6.classList.add('orange');
@@ -457,16 +323,6 @@ socket.on("transformerTestData", function (msg) {
     resultBox7.classList.remove('blue', 'yellow', 'green', 'red');
     resultText7.textContent = dielectric_oil;
 
-
-
-    // alertButton3.textContent = "Click Me1";
-
-    // alertButton3.addEventListener("click", function () {
-    //   // display the alert
-    //   alert("hello");
-    // });
-
-
   } else if (msg.oil_temperature >= 90 && msg.oil_temperature < 100) {
     resultBox6.classList.add('red');
     resultBox6.classList.remove('green', 'yellow', 'orange', 'blue');
@@ -478,39 +334,29 @@ socket.on("transformerTestData", function (msg) {
     resultBox7.classList.remove('blue', 'yellow', 'orange', 'green');
     resultText7.textContent = dielectric_oil;
 
-
-
-    // alertButton3.textContent = "Click Me1";
-
-    // alertButton3.addEventListener("click", function () {
-    //   // display the alert
-    //   alert("hello");
-    // });
-
-
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 });
 
 
-//const avg = (hif_winding + hif_ratio +hif_efficiency)/3;
-//const life_expectancy = (0.5*avg) + dielectric_oil;
 
+// test 5 id
 
+//test 5 id------------------------------
+
+const resultBox8 = document.querySelector('.result-box8');
+const resultText8 = document.querySelector('.result-text8');
+
+const resultBox9 = document.querySelector('.result-box9');
+const resultText9 = document.querySelector('.result-text9');
+
+//receive details from server
+socket.on("predictiveData", function (msg) {
+  console.log("Received PredictiveData :: " + msg.fault_percentage);
+
+  addData(msg.fault_percentage, "test5");
+
+});
 
 //================== funtion to display image==============================
 function openImage() {

@@ -476,12 +476,15 @@ demo = {
         removeFirstData(myPriCurrChart);
       }
       addData(msg.date, ratioTestValue, myPriCurrChart);
-
       
+      // document.getElementById("tableRow1").innerHTML = ratioTestValue;
+      if(ratioTestValue>2){
+        alert("Ratio Test Alert: Condition Very Poor - There is severe winding damage. Inspect the windings for any signs of damage or deterioration, such as breaks or cracks. The damaged or deteriorated windings should be repaired or replaced immediately.");
+      }else if(ratioTestValue>1 && ratioTestValue<=2){
+        alert("Ratio Test Alert: Condition Poor - There is severe winding damage. Inspect the windings for any signs of damage or deterioration, such as breaks or cracks. The damaged or deteriorated windings should be repaired or replaced immediately.");
+      }
+
     });
-
-
-
 
     // ==================== chart end : Ratio Test ===================
 
@@ -525,18 +528,22 @@ demo = {
     });
 
 
+
     //receive details from server
     socket.on("transformerTestData", function (msg) {
       console.log("Received sensorData :: " + msg.efficiency);
-
+      var efficiencyValue = msg.efficiency;
       // Show only MAX_DATA_COUNT data
       if (mySecVoltchart.data.labels.length > MAX_DATA_COUNT) {
         removeFirstData(mySecVoltchart);
       }
       addData(msg.date, msg.efficiency, mySecVoltchart);
+      if(efficiencyValue<0.6){
+        alert("Efficiency Test Alert: Condition Very Poor - There are copper losses because of issues with the transformer's winding resistance or connection, such as loose connections or damaged windings, and/or there may be iron losses because of issues with the transformer's core, such as loose laminations, rust, or damage. The transformer’s insulation also may be damaged. Please get it checked immediately! ");
+      }else if(efficiencyValue>=0.6 && efficiencyValue<=0.75){
+        alert("Efficiency Test Alert: Condition Poor - There may be copper losses because of issues with the transformer's winding resistance or connection, such as loose connections or damaged windings, and/or there may be iron losses because of issues with the transformer's core, such as loose laminations, rust, or damage. The transformer’s insulation also may be damaged. Please get it checked immediately!");
+      }
     });
-
-
     //=======================  chart end : Efficiency =======================
 
 
@@ -582,11 +589,19 @@ demo = {
     socket.on("transformerTestData", function (msg) {
       console.log("Received sensorData :: " + msg.date + " :: " + msg.oil_temperature);
 
+      var oilValue = msg.oil_temperature;
       // Show only MAX_DATA_COUNT data
       if (mySecCurrChart.data.labels.length > MAX_DATA_COUNT) {
         removeFirstData(mySecCurrChart);
       }
       addData(msg.date, msg.oil_temperature, mySecCurrChart);
+
+      if(oilValue>90 && oilValue<100){
+        alert("Oil Temperature Test Alert: Condition Very Poor - The cooling system may be faulty, such as a malfunctioning fan or radiator, or a blockage in the cooling channels. There could also be low oil levels or the transformer's oil may be contaminated or degraded. The oil pump could also be faulty. The rise in oil temperature could also be due to the transformer being located in an area with a high ambient temperature, such as direct sunlight or a hot environment. Please get it checked immediately! ");
+      }
+      else if(oilValue>=80 && oilValue<=90){
+        alert("Oil Temperature Test Alert: Condition Poor - The cooling system may be faulty, such as a malfunctioning fan or radiator, or a blockage in the cooling channels. There could also be low oil levels or the transformer's oil may be contaminated or degraded. The oil pump could also be faulty. The rise in oil temperature could also be due to the transformer being located in an area with a high ambient temperature, such as direct sunlight or a hot environment. Please get it checked immediately! ");
+      }
     });
     //===================== chart end : oil temperature ==================================
 
@@ -635,69 +650,30 @@ demo = {
     socket.on("transformerTestData", function (msg) {
       console.log("Received sensorData :: " + msg.winding_resistance_diff);
 
+      // var windingTest = winding_resistance_diff;
+
       // Show only MAX_DATA_COUNT data
       if (myPriVoltChart.data.labels.length > MAX_DATA_COUNT) {
         removeFirstData(myPriVoltChart);
       }
       addData(msg.date, msg.winding_resistance_diff, myPriVoltChart);
+
+      // if(windingTest>5){
+      //   alert("Winding Resistance Test Alert: Condition Very Poor - The cooling system may be faulty, such as a malfunctioning fan or radiator, or a blockage in the cooling channels. There could also be low oil levels or the transformer's oil may be contaminated or degraded. The oil pump could also be faulty. The rise in oil temperature could also be due to the transformer being located in an area with a high ambient temperature, such as direct sunlight or a hot environment. Please get it checked immediately! ");
+      // }else if(windingTest>3 && windingTest<=5){
+      //   alert("Winding Resistance Test Alert: Condition Poor - The cooling system may be faulty, such as a malfunctioning fan or radiator, or a blockage in the cooling channels. There could also be low oil levels or the transformer's oil may be contaminated or degraded. The oil pump could also be faulty. The rise in oil temperature could also be due to the transformer being located in an area with a high ambient temperature, such as direct sunlight or a hot environment. Please get it checked immediately! ");
+      // }
     });
+    
 
 
 
     // ======================= chart end : Winding Resistance ==============================
 
-
-
-
-
-
-
-
-
-
-    // ================== winding temperature =================================
-    // var gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
-
-    // gradientStroke.addColorStop(1, 'rgba(29,140,248,0.2)');
-    // gradientStroke.addColorStop(0.4, 'rgba(29,140,248,0.0)');
-    // gradientStroke.addColorStop(0, 'rgba(29,140,248,0)'); //blue colors
-
-    // var ctx = document.getElementById("CountryChart").getContext("2d");
-    // var myChart = new Chart(ctx, {
-    //   type: 'line',
-    //   responsive: true,
-    //   legend: {
-    //     display: false
-    //   },
-    //   data: {
-    //     // labels: ['USA', 'GER', 'AUS', 'UK', 'RO', 'BR'],
-    //     datasets: [{
-    //       label: "Temperature",
-    //       fill: true,
-    //       backgroundColor: gradientStroke,
-    //       hoverBackgroundColor: gradientStroke,
-    //       borderColor: '#1f8ef1',
-    //       borderWidth: 2,
-    //       borderDash: [],
-    //       borderDashOffset: 0.0,
-    //       // data: [53, 20, 10, 80, 100, 45],
-    //     }]
-    //   },
-    //   options: gradientChartOptionsConfigurationWithTooltipBlue
-    // });
-
-    // //receive details from server
-    // socket.on("updateSensorData", function (msg) {
-    //   console.log("Received sensorData :: " + msg.date + " :: " + msg.primary_vl_value);
-
-    //   // Show only MAX_DATA_COUNT data
-    //   if (myChart.data.labels.length > MAX_DATA_COUNT) {
-    //     removeFirstData(myChart);
-    //   }
-    //   addData(msg.date, msg.primary_vl_value, myChart);
-    // });
-
   }
 
 }
+
+
+
 

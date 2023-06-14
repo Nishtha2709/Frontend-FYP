@@ -1,3 +1,8 @@
+
+<!-- Descriptive Analysis -->
+<!-- route: /analysis -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -56,25 +61,32 @@
 
                 <!-- ==========================NAVIGATION BAR====================================== -->
                 <ul class="nav">
-                    <li class="active ">
-                        <a href="./dashboard.html">
+                    <li>
+                        <a href="./dashboard">
                             <i class="tim-icons icon-chart-pie-36"></i>
                             <p>Dashboard</p>
                         </a>
                     </li>
 
-                    <li class="active ">
+                    <li>
                         <a href="./tests">
                             <i class="tim-icons icon-atom"></i>
                             <p>Behavioral Tests</p>
                         </a>
                     </li>
 
+                    <li class="active">
+                        <a href="./tests">
+                            <i class="tim-icons icon-atom"></i>
+                            <p>Descriptive Analysis</p>
+                        </a>
+                    </li>
+                    
                     <li>
-                        <a href="">
+                        <a href="./prescriptive">
                             <!-- <a href="./map.html"></a> -->
                             <i class="tim-icons icon-pin"></i>
-                            <p>Transformer</p>
+                            <p>Prescriptive Analysis</p>
                         </a>
                     </li>
 
@@ -224,7 +236,7 @@
                                             <span class="result-text"></span>
                                         </div>
 
-                                        <button class="btn btn-primary" style="height: 50px; margin-top: 47px;">Analysis</button>
+                                        <!-- <button class="btn btn-primary" style="height: 50px; margin-top: 47px;" id="ratioTestBtn">Analysis</button> -->
 
                                         <div class="result-box1">
                                             <span class="result-text1"></span>
@@ -256,7 +268,7 @@
                                             <span class="result-text2"></span>
                                         </div>
 
-                                        <button class="btn btn-primary" style="height: 50px; margin-top: 47px;">Analysis</button>
+                                        <!-- <button class="btn btn-primary" style="height: 50px; margin-top: 47px;">Analysis</button> -->
 
                                         <div class="result-box3">
                                             <span class="result-text3"></span>
@@ -290,7 +302,7 @@
                                             <span class="result-text4"></span>
                                         </div>
 
-                                        <button class="btn btn-primary" style="height: 50px; margin-top: 47px;">Analysis</button>
+                                        <!-- <button class="btn btn-primary" style="height: 50px; margin-top: 47px;">Analysis</button> -->
 
                                         <div class="result-box5">
                                             <span class="result-text5"></span>
@@ -320,7 +332,7 @@
                                             <span class="result-text6"></span>
                                         </div>
 
-                                        <button class="btn btn-primary" style="height: 50px; margin-top: 47px;">Analysis</button>
+                                        <!-- <button class="btn btn-primary" style="height: 50px; margin-top: 47px;">Analysis</button> -->
 
                                         <div class="result-box7">
                                             <span class="result-text7"></span>
@@ -333,6 +345,28 @@
                     <!-- OIL TEMPERATURE END -->
                 </div>
                 <!-- ROW 2 END -->
+
+                <!--============================= ROW 3 START ============================-->
+                <div class="row">
+                    <!-- WINDING RESISTANCE START -->
+                    <div class="col-lg-6">
+                        <div class="card card-chart">
+                            <div class="card-header ">
+                                <!-- <h5 class="card-category">Completed Tasks</h5> -->
+                                <h3 class="card-title"><i class="tim-icons icon-send text-success "></i>Fault Percentage </h3>
+                            </div>
+                            <div class="card-body ">
+                                <div class="chart-area" style="height: 320px;">
+                                    <!-- <canvas id="chartLineGreen"></canvas> -->
+                                    <h1 class="text-primary font-icon-detail" id="test5">5.7</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- WINDING RESISTANCE END -->
+
+                </div>
+                <!-- ROW 3 END -->
 
                 <footer class="footer">
                     <div class="container-fluid">
@@ -389,20 +423,6 @@
                         <span class="badge dark-badge ml-2"></span>
                         <span class="color-label">DARK MODE</span>
                     </li>
-                    <!-- <li class="button-container">
-            <a href="https://www.creative-tim.com/product/black-dashboard" target="_blank" class="btn btn-primary btn-block btn-round">Download Now</a>
-            <a href="https://demos.creative-tim.com/black-dashboard/docs/1.0/getting-started/introduction.html" target="_blank" class="btn btn-default btn-block btn-round">
-              Documentation
-            </a> 
-          </li> -->
-                    <!-- <li class="header-title">Thank you for 95 shares!</li>
-          <li class="button-container text-center">
-            <button id="twitter" class="btn btn-round btn-info"><i class="fab fa-twitter"></i> &middot; 45</button>
-            <button id="facebook" class="btn btn-round btn-info"><i class="fab fa-facebook-f"></i> &middot; 50</button>
-            <br>
-            <br>
-            <a class="github-button" href="https://github.com/creativetimofficial/black-dashboard" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star ntkme/github-buttons on GitHub">Star</a>
-          </li> -->
                 </ul>
             </div>
         </div>

@@ -2319,7 +2319,7 @@ p.description {
 .card-category {
   text-transform: capitalize;
   font-weight: 400;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0,0,0,0);
   font-size: 0.8571em;
 }
 
@@ -4685,7 +4685,7 @@ table.tablesorter thead tr .headerSortDown {
 
 .card .card-body .card-description,
 .card .card-body .card-category {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(0,0,0,0);
 }
 
 .card .card-header {

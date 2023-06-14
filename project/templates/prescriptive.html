@@ -1,3 +1,7 @@
+
+<!-- prescriptive analysis -->
+<!-- route: /prescriptive -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,10 +45,10 @@
     -->
             <div class="sidebar-wrapper">
                 <div class="logo">
-                    <a href="http://www.creative-tim.com" class="simple-text logo-mini">
+                    <a href="" class="simple-text logo-mini">
                         DT
                     </a>
-                    <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+                    <a href="" class="simple-text logo-normal">
                         Digital Twin
                     </a>
                 </div>
@@ -52,14 +56,14 @@
 
                 <!-- ==========================NAVIGATION BAR====================================== -->
                 <ul class="nav">
-                    <li class="active ">
-                        <a href="./dashboard.html">
+                    <li>
+                        <a href="./dashboard">
                             <i class="tim-icons icon-chart-pie-36"></i>
                             <p>Dashboard</p>
                         </a>
                     </li>
 
-                    <li class="active ">
+                    <li>
                         <a href="./tests">
                             <i class="tim-icons icon-atom"></i>
                             <p>Behavioral Tests</p>
@@ -67,18 +71,18 @@
                     </li>
 
                     <li>
-                        <a href="">
+                        <a href="./analysis">
                             <!-- <a href="./map.html"></a> -->
                             <i class="tim-icons icon-pin"></i>
-                            <p>Transformer</p>
+                            <p>Descriptive Analysis</p>
                         </a>
                     </li>
 
-                    <li>
+                    <li class="active">
                         <a href="">
                             <!-- <a href="./notifications.html"> -->
                             <i class="tim-icons icon-bell-55"></i>
-                            <p>Site Manager</p>
+                            <p>Prescriptive Analysis</p>
                         </a>
                     </li>
                     <li>
@@ -161,7 +165,7 @@
                                     <div class="photo">
                                         <img src="../static/img/anime3.png">
                                     </div>
-                                    <b class="caret d-none d-lg-block d-xl-block"></b>
+                                    <!-- <b class="caret d-none d-lg-block d-xl-block"></b> -->
                                     <p class="d-lg-none">
                                         Log out
                                     </p>
@@ -179,7 +183,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="separator d-lg-none"></li>
+                            <!-- <li class="separator d-lg-none"></li> -->
                         </ul>
                     </div>
                 </div>
@@ -205,37 +209,33 @@
             <div class="content">
                 <div class="row">
                     <!---------------- RATIO CHART START ------------------>
-                    <div class="col-lg-6">
+                    <div class="col-lg-3">
                         <div class="card card-chart text-center">
                             <div class="card-header ">
 
                                 <!-- <h5 class="card-category">Ratio Test</h5> -->
                                 <h3 class="card-title">Ratio Test</h3>
 
-
-
-
                             </div>
                             <div class="card-body">
                                 <div class="chart-area" style="height: 280px;">
-
                                     <canvas id="chartBig1"></canvas>
                                 </div>
 
-                                <div class="row">
-                                    <div class="result-box" style="margin-left: 200px;">
+                                <!-- <div class="row">
+                                     <div class="result-box">
                                         <span class="result-text" id="test1"></span>
-                                    </div>
-                                    <a href="#" class="btn btn-primary"
-                                        style="height: 50px; margin-top: 45px; margin-right: 250px;">Analysis</a>
-                                </div>
+                                    </div> 
+                                     <p onload="storeData('name', 'nishhh');"></p> 
+                                    <a href="#" class="btn btn-primary">Analysis</a> 
+                                </div> -->
                             </div>
                         </div>
                     </div>
                     <!----------------- RATIO CHART END --------------------->
 
                     <!----------------- EFFICIENCY CHART START -------------->
-                    <div class="col-lg-6">
+                    <div class="col-lg-3">
                         <div class="card card-chart text-center">
                             <div class="card-header ">
                                 <!-- <h class="card-category">Efficiency </h1> -->
@@ -245,22 +245,17 @@
                                 <div class="chart-area" style="height: 280px">
                                     <canvas id="chartLinePurple"></canvas>
                                 </div>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
-                                <div class="result-box1">
-                                    <span class="result-text1" id="test2"></span>
-                                </div>
+                                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                                <!-- <div class="result-box2"> 
+                                 <span class="result-text2" id="test2"></span> 
+                                 </div> -->
                             </div>
                         </div>
                     </div>
                     <!----------------- EFFICIENCY CHART END -------------->
-                </div>
-                <!--------------------- ROW 1 END--------------------------->
 
-
-                <!--------------------- ROW 2 START ------------------------>
-                <div class="row">
                     <!----------------- OIL TEMPERATURE START -------------->
-                    <div class="col-lg-6">
+                    <div class="col-lg-3">
                         <div class="row">
                             <div class="col-12">
                                 <div class="card card-chart text-center">
@@ -272,16 +267,17 @@
                                         <div class="chart-area" style="height: 280px;">
                                             <canvas id="chartBig2"></canvas>
                                         </div>
-                                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                                        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <!------------------- OIL TEMPERATURE END --------------->
 
                     <!------------------ WINDING RESISTANCE START ---------------->
-                    <div class="col-lg-6">
+                    <div class="col-lg-3">
                         <div class="card card-chart text-center">
                             <div class="card-header ">
                                 <!-- <h5 class="card-category">Oil Temperature</h5> -->
@@ -291,22 +287,83 @@
                                 <div class="chart-area" style="height: 280px;">
                                     <canvas id="chartLineGreen"></canvas>
                                 </div>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                <!-- <a href="#" class="btn btn-primary" onclick="alert()">Go somewhere</a> -->
                             </div>
                         </div>
                     </div>
                     <!----------------- WINDING RESISTANCE END ---------------->
                 </div>
-                <!--------------------- ROW 2 END   ------------------------>
+                <!--------------------- ROW 1 END--------------------------->
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="text-left">Sr. No.</th>
+                            <th>Name Of Test</th>
+                            <th>Hif</th>
+                            <th>Condition</th>
+                            <th>Solution</th>
+                            <!-- <th class="text-right">Actions</th> -->
+                        </tr>
+                    </thead>
+                    <tbody id="tbody1">
+                        <tr>
+                            <td class="text-center">1</td>
+                            <td>Andrew Mike</td>
+                            <td>Develop</td>
+                            <td>2013</td>
+                            <td class="text-right">&euro; 99,225</td>
+                            <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" class="btn btn-info btn-sm btn-icon">
+                                    <i class="tim-icons icon-single-02"></i>
+                                </button>
+                                <button type="button" rel="tooltip" class="btn btn-success btn-sm btn-icon">
+                                    <i class="tim-icons icon-settings"></i>
+                                </button>
+                                <button type="button" rel="tooltip" class="btn btn-danger btn-sm btn-icon">
+                                    <i class="tim-icons icon-simple-remove"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">2</td>
+                            <td>John Doe</td>
+                            <td>Design</td>
+                            <td>2012</td>
+                            <td class="text-right">&euro; 89,241</td>
+                            <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" class="btn btn-info btn-sm btn-round btn-icon">
+                                    <i class="tim-icons icon-single-02"></i>
+                                </button>
+                                <button type="button" rel="tooltip" class="btn btn-success btn-sm btn-round btn-icon">
+                                    <i class="tim-icons icon-settings"></i>
+                                </button>
+                                <button type="button" rel="tooltip" class="btn btn-danger btn-sm btn-round btn-icon">
+                                    <i class="tim-icons icon-simple-remove"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center">3</td>
+                            <td>Alex Mike</td>
+                            <td>Design</td>
+                            <td>2010</td>
+                            <td class="text-right">&euro; 92,144</td>
+                            <td class="td-actions text-right">
+                                <button type="button" rel="tooltip" class="btn btn-info btn-link btn-icon btn-sm">
+                                    <i class="tim-icons icon-single-02"></i>
+                                </button>
+                                <button type="button" rel="tooltip" class="btn btn-success btn-link btn-icon btn-sm">
+                                    <i class="tim-icons icon-settings"></i>
+                                </button>
+                                <button type="button" rel="tooltip" class="btn btn-danger btn-link btn-icon btn-sm">
+                                    <i class="tim-icons icon-simple-remove"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- </div> -->
             </div>
-            <!------------------------ CHARTS END   ----------------------------->
-
-
-
-
-
-
-
 
             <footer class="footer">
                 <div class="container-fluid">
@@ -341,6 +398,8 @@
     </div>
 
 
+
+
     <div class="fixed-plugin">
         <div class="dropdown show-dropdown">
             <a href="#" data-toggle="dropdown">
@@ -364,25 +423,32 @@
                     <span class="badge dark-badge ml-2"></span>
                     <span class="color-label">DARK MODE</span>
                 </li>
-                <li class="button-container">
-                    <a href="https://www.creative-tim.com/product/black-dashboard" target="_blank"
-                        class="btn btn-primary btn-block btn-round">Download Now</a> -->
-                    <a href="https://demos.creative-tim.com/black-dashboard/docs/1.0/getting-started/introduction.html"
-                        target="_blank" class="btn btn-default btn-block btn-round"> -->
-                        Documentation
+            </ul>
+        </div>
+    </div>
+
+    <div class="fixed-plugin">
+        <div class="dropdown show-dropdown">
+            <a href="#" data-toggle="dropdown">
+                <i class="fa fa-cog fa-2x"> </i>
+            </a>
+            <ul class="dropdown-menu">
+                <li class="header-title"> Sidebar Background</li>
+                <li class="adjustments-line">
+                    <a href="javascript:void(0)" class="switch-trigger background-color">
+                        <div class="badge-colors text-center">
+                            <span class="badge filter badge-primary active" data-color="primary"></span>
+                            <span class="badge filter badge-blue" data-color="blue"></span>
+                            <span class="badge filter badge-green" data-color="green"></span>
+                        </div>
+                        <div class="clearfix"></div>
                     </a>
                 </li>
-                <li class="header-title">Thank you for 95 shares!</li>
-                <li class="button-container text-center">
-                    <button id="twitter" class="btn btn-round btn-info"><i class="fab fa-twitter"></i> &middot;
-                        45</button>
-                    <button id="facebook" class="btn btn-round btn-info"><i class="fab fa-facebook-f"></i> &middot;
-                        50</button>
-                    <br>
-                    <br>
-                    <a class="github-button" href="https://github.com/creativetimofficial/black-dashboard"
-                        data-icon="octicon-star" data-size="large" data-show-count="true"
-                        aria-label="Star ntkme/github-buttons on GitHub">Star</a>
+                <li class="adjustments-line text-center color-change">
+                    <span class="color-label">LIGHT MODE</span>
+                    <span class="badge light-badge mr-2"></span>
+                    <span class="badge dark-badge ml-2"></span>
+                    <span class="color-label">DARK MODE</span>
                 </li>
             </ul>
         </div>
@@ -407,7 +473,10 @@
         integrity="sha512-aMGMvNYu8Ue4G+fHa359jcPb1u+ytAF+P2SCb+PxrjCdO3n3ZTxJ30zuH39rimUggmTwmh2u7wvQsDTHESnmfQ=="
         crossorigin="anonymous"></script>
     <script src="../static/js/condition.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-database.js"></script>
     <script src="../static/js/prescriptive.js"></script>
+    <!-- <script type="module"  src="../static/js/firebase.js"></script> -->
 
 
     <script>
@@ -521,18 +590,91 @@
             });
         });
 
-
-
-    </script>
-    <script>
         $(document).ready(function () {
             // Javascript method's body can be found in static/js/demos.js
             demo.initDashboardPageCharts();
 
         });
 
+    </script>
 
+    <script type="module">
 
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+        import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
+        //Initialize Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyAx8jh5Z488sMwj00f4MB69BcK9jJczNgc",
+            authDomain: "login-form-f8c27.firebaseapp.com",
+            projectId: "login-form-f8c27",
+            storageBucket: "login-form-f8c27.appspot.com",
+            messagingSenderId: "901028173004",
+            appId: "1:901028173004:web:26b8fbec0c6404a04cde69"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        // const database = getDatabase();
+
+        var stdNo = 0;
+        var tbody = document.getElementById('tbody1');
+
+        function addItemToTable(condition, hif, name, solution) {
+            let trow = document.createElement('tr');
+            let td1 = document.createElement('td');
+            let td2 = document.createElement('td');
+            let td3 = document.createElement('td');
+            let td4 = document.createElement('td');
+            let td5 = document.createElement('td');
+
+            td1.innerHTML = ++stdNo;
+            td2.innerHTML = condition;
+            td3.innerHTML = hif;
+            td4.innerHTML = name;
+            td5.innerHTML = solution;
+
+            trow.appendChild(td1);
+            trow.appendChild(td2);
+            trow.appendChild(td3);
+            trow.appendChild(td4);
+            trow.appendChild(td5);
+
+            tbody.appendChild(trow);
+
+        }
+
+        function AddAllItemsToTable(Data) {
+            stdNo = 0;
+            tbody.innerHTML = "";
+            Data.forEach(element => {
+                addItemToTable(element.Name, element.Hif, element.Condition, element.Solution);
+            });
+        }
+
+        function GetAllDataOnce() {
+            // const dbref = ref(database);
+            var usersRef = firebase.database().ref("test2");
+
+            // var usersRef = ref(database, "test2");
+
+            usersRef.once("value")
+            .then(function (snapshot) {
+                var students = [];
+                snapshot.forEach(function (childSnapshot) {
+                    students.push(childSnapshot.val());
+                    var userKey = childSnapshot.key;
+                    var userData = childSnapshot.val();
+                    console.log("User key: " + userKey);
+                    console.log("User data: ", userData);
+                });
+                AddAllItemsToTable(students);
+            })
+            .catch(function (error) {
+                console.log("Error: " + error.message);
+            });
+        }
+
+        window.onload = GetAllDataOnce;
     </script>
 
 </body>

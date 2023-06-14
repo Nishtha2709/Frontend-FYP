@@ -2,11 +2,13 @@ from flask import Flask, render_template, request
 from flask_socketio import SocketIO
 from random import random
 from threading import Lock
-#from datetime import datetime
+from datetime import datetime
 
 import pandas as pd
 
 from transformer_test import efficiency, ratio_test, winding_resistance
+from ml_model import init
+from ml_pred import pred
 
 
 
@@ -19,9 +21,19 @@ thread_lock = Lock()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'donsky!'
 socketio = SocketIO(app, cors_allowed_origins='*')
+pd.options.mode.chained_assignment = None
 
 iteration = 0
 data = pd.read_csv("transformer_dataset.csv")
+data1 = pd.read_csv("preprocessed_fault_data.csv")
+svm_weights = init(data)
+
+"""
+Get current date time
+"""
+def get_current_datetime():
+    now = datetime.now()
+    return now.strftime("%m/%d/%Y %H:%M:%S")
 
 
 """
@@ -38,10 +50,6 @@ def dashboard():
 @app.route('/tests')
 def tests():
     return render_template('descriptive.html')
-
-@app.route('/try')
-def trying():
-    return render_template('try.html')
 
 @app.route('/home')
 def home():
@@ -64,7 +72,6 @@ def analysis():
     return render_template('descriptive_analysis.html')
 
 
-
 #------------------------------------Socket Connection------------------------------------#
 
 """
@@ -82,6 +89,8 @@ def background_thread():
         primary_curr_value = ( float(data["Primary_IL1"][iteration]) + float(data["Primary_IL2"][iteration]) + float(data["Primary_IL3"][iteration]) ) /3
         secondary_curr_value = ( float(data["Secondary_IL1"][iteration]) + float(data["Secondary_IL2"][iteration]) + float(data["Secondary_IL3"][iteration]) ) /3
 
+        fault_percentage = pred(data1.iloc[[iteration]], svm_weights)
+
         # socket data emission for dynamic graphs
         socketio.emit('updateSensorData', {'primary_vl_value':primary_vl_value, 
                                            'secondary_vl_value':secondary_vl_value,
@@ -98,7 +107,12 @@ def background_thread():
         socketio.emit('transformerTestData', {'ratio_test':ratio_test_value,
                                               'efficiency':efficiency_value,
                                               'winding_resistance_diff':winding_resistance_diff,
-                                              'oil_temperature':oil_temperature})
+                                              'oil_temperature':oil_temperature,
+                                              'date':data["DeviceTimeStamp"][iteration]})
+        
+        socketio.emit('predictiveData',{'fault_percentage':fault_percentage})
+        
+
         
         iteration+=1
         socketio.sleep(1)
